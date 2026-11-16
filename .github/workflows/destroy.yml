@@ -1,0 +1,47 @@
+# Destruir todo el entorno dev con un clic (Actions > destroy > Run workflow, escribir "destruir").
+name: destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmar:
+        description: 'Escribí "destruir" para confirmar'
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+
+jobs:
+  destroy:
+    if: github.event.inputs.confirmar == 'destruir'
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      TF_IN_AUTOMATION: "true"
+      TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
+      TF_VAR_alert_emails: ${{ vars.ALERT_EMAILS }}
+      TF_VAR_image: ${{ vars.IMAGE_REPO }}/app:destroy
+    defaults:
+      run:
+        working-directory: infra/envs/dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+      - run: terraform init -input=false -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+      - run: terraform destroy -input=false -auto-approve -var-file=dev.tfvars
+      - name: Evidencia - el state quedó vacío
+        run: |
+          echo "Recursos que quedan en el state:"
+          terraform state list | tee restantes.txt
+          test ! -s restantes.txt && echo "OK: state vacío"

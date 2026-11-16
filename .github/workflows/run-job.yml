@@ -1,0 +1,31 @@
+# Ejecución manual del job (además del cron diario). Para la demo de la alerta, elegir opiniones_crisis.csv.
+name: run-job
+
+on:
+  workflow_dispatch:
+    inputs:
+      csv:
+        description: CSV del bucket de entrada a analizar
+        type: choice
+        options: [opiniones.csv, opiniones_crisis.csv]
+        default: opiniones.csv
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  ejecutar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: Ejecutar el job y esperar el resultado
+        run: |
+          gcloud run jobs execute zenithzest-job \
+            --region "${{ vars.GCP_REGION }}" \
+            --update-env-vars "INPUT_OBJECT=${{ github.event.inputs.csv }}" \
+            --wait

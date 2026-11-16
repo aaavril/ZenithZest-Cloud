@@ -1,0 +1,8 @@
+# Hallazgos revisados en docs/seguridad.md. Los aceptados están justificados con "#checkov:skip=<ID>:<motivo>"
+# en cada recurso; cualquier hallazgo nuevo bloquea el merge.
+soft-fail: false
+compact: true
+skip-check:
+  # Los inputs de destroy.yml (texto de confirmación) y run-job.yml (elección del CSV) no afectan
+  # al artefacto construido: esos workflows no hacen build.
+  - CKV_GHA_7

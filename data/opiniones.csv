@@ -1,0 +1,201 @@
+id,fecha,canal,opinion
+1,2026-11-11,instagram,Compré ZenithZest Zero para entrenar y rindo muchísimo mejor
+2,2026-10-24,reseña google,"Por fin un energético sin tanta azúcar, ZenithZest Mango es genial"
+3,2026-10-03,instagram,"Por fin un energético sin tanta azúcar, ZenithZest Citrus es genial"
+4,2026-10-06,reseña google,"ZenithZest Citrus es el mejor jugo energético que probé, súper natural"
+5,2026-10-15,reseña google,"El ZenithZest Mango bien frío es una delicia, ya es mi favorito"
+6,2026-10-26,instagram,Compré ZenithZest Ginger y otro energético para comparar
+7,2026-10-09,tienda online,Probé ZenithZest Ginger ayer en la oficina
+8,2026-11-06,tienda online,"Por fin un energético sin tanta azúcar, ZenithZest Mango es genial"
+9,2026-11-07,reseña google,"Carísimo para lo que es, ZenithZest Mango no vale la pena"
+10,2026-11-05,instagram,"ZenithZest Mango tiene gusto a jarabe, muy decepcionante"
+11,2026-11-13,reseña google,La lata de ZenithZest Zero llegó abollada y nadie me respondió el reclamo
+12,2026-11-07,encuesta,"Recomiendo ZenithZest Zero a todos, ideal para la facultad"
+13,2026-11-14,x,"Excelente ZenithZest Citrus, no tiene ese gusto artificial de otras marcas"
+14,2026-11-01,tienda online,La nueva lata de ZenithZest Ginger es hermosa y el sabor increíble
+15,2026-10-05,instagram,El sabor de ZenithZest Ginger cambió y ahora es horrible
+16,2026-10-10,encuesta,Compré ZenithZest Berry para entrenar y rindo muchísimo mejor
+17,2026-11-06,tienda online,"ZenithZest Ginger es el mejor jugo energético que probé, súper natural"
+18,2026-11-01,reseña google,"Recomiendo ZenithZest Ginger a todos, ideal para la facultad"
+19,2026-10-18,encuesta,"Me cayó pésimo ZenithZest Mango, me dio dolor de cabeza"
+20,2026-11-14,tienda online,"Me cayó pésimo ZenithZest Mango, me dio dolor de cabeza"
+21,2026-10-25,tienda online,"Pésima experiencia con la tienda online de ZenithZest, el pedido nunca llegó"
+22,2026-10-11,reseña google,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+23,2026-10-19,x,"Me encanta el sabor de ZenithZest Citrus, me da energía para toda la mañana"
+24,2026-11-01,instagram,"Nunca hay stock de ZenithZest Zero en el supermercado, qué mala distribución"
+25,2026-10-18,x,"ZenithZest Ginger me salvó la semana de parciales, muy bueno"
+26,2026-10-27,tienda online,Compré ZenithZest Berry y otro energético para comparar
+27,2026-10-10,instagram,"Nunca hay stock de ZenithZest Citrus en el supermercado, qué mala distribución"
+28,2026-10-01,encuesta,"Excelente ZenithZest Citrus, no tiene ese gusto artificial de otras marcas"
+29,2026-10-19,instagram,Vi que ZenithZest Berry ahora viene en botella de vidrio
+30,2026-11-09,reseña google,"Por fin un energético sin tanta azúcar, ZenithZest Berry es genial"
+31,2026-11-09,instagram,Compré ZenithZest Ginger para entrenar y rindo muchísimo mejor
+32,2026-10-26,encuesta,"Por fin un energético sin tanta azúcar, ZenithZest Zero es genial"
+33,2026-10-04,x,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+34,2026-10-11,instagram,"Excelente ZenithZest Zero, no tiene ese gusto artificial de otras marcas"
+35,2026-10-01,reseña google,"Me encanta el sabor de ZenithZest Mango, me da energía para toda la mañana"
+36,2026-11-09,instagram,"ZenithZest Berry es el mejor jugo energético que probé, súper natural"
+37,2026-10-25,x,"Excelente ZenithZest Ginger, no tiene ese gusto artificial de otras marcas"
+38,2026-10-24,encuesta,"ZenithZest Ginger tiene gusto a jarabe, muy decepcionante"
+39,2026-10-31,encuesta,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+40,2026-10-22,tienda online,Compré ZenithZest Mango para entrenar y rindo muchísimo mejor
+41,2026-10-02,x,Compré ZenithZest Ginger para entrenar y rindo muchísimo mejor
+42,2026-10-10,reseña google,Compré ZenithZest Berry y otro energético para comparar
+43,2026-11-11,instagram,Compré ZenithZest Berry y otro energético para comparar
+44,2026-10-24,x,El sabor de ZenithZest Ginger cambió y ahora es horrible
+45,2026-11-04,reseña google,"Excelente ZenithZest Ginger, no tiene ese gusto artificial de otras marcas"
+46,2026-10-13,x,"Excelente ZenithZest Ginger, no tiene ese gusto artificial de otras marcas"
+47,2026-10-13,reseña google,ZenithZest sacó un sabor nuevo de ZenithZest Citrus
+48,2026-10-18,encuesta,"Me encanta el sabor de ZenithZest Mango, me da energía para toda la mañana"
+49,2026-10-29,tienda online,"El ZenithZest Berry bien frío es una delicia, ya es mi favorito"
+50,2026-10-15,instagram,¿Alguien sabe si ZenithZest Mango tiene cafeína?
+51,2026-10-14,encuesta,"Excelente ZenithZest Berry, no tiene ese gusto artificial de otras marcas"
+52,2026-11-11,tienda online,"ZenithZest Zero es demasiado dulce, no lo vuelvo a comprar"
+53,2026-10-25,x,"Me cayó pésimo ZenithZest Mango, me dio dolor de cabeza"
+54,2026-11-10,tienda online,Compré ZenithZest Zero para entrenar y rindo muchísimo mejor
+55,2026-10-26,instagram,"ZenithZest Zero me salvó la semana de parciales, muy bueno"
+56,2026-10-02,x,"Carísimo para lo que es, ZenithZest Citrus no vale la pena"
+57,2026-11-09,reseña google,"Pésima experiencia con la tienda online de ZenithZest, el pedido nunca llegó"
+58,2026-10-10,reseña google,ZenithZest sacó un sabor nuevo de ZenithZest Berry
+59,2026-11-11,instagram,"Me encanta el sabor de ZenithZest Mango, me da energía para toda la mañana"
+60,2026-10-13,x,Compré ZenithZest Zero para entrenar y rindo muchísimo mejor
+61,2026-11-02,x,"Excelente ZenithZest Berry, no tiene ese gusto artificial de otras marcas"
+62,2026-11-04,encuesta,"ZenithZest Berry tiene gusto a jarabe, muy decepcionante"
+63,2026-10-30,reseña google,Probé ZenithZest Berry ayer en la oficina
+64,2026-11-02,x,Compré ZenithZest Zero y otro energético para comparar
+65,2026-10-02,encuesta,"Por fin un energético sin tanta azúcar, ZenithZest Ginger es genial"
+66,2026-10-12,x,"ZenithZest Citrus es demasiado dulce, no lo vuelvo a comprar"
+67,2026-10-04,tienda online,"ZenithZest Ginger es el mejor jugo energético que probé, súper natural"
+68,2026-11-05,instagram,"Pésima experiencia con la tienda online de ZenithZest, el pedido nunca llegó"
+69,2026-10-07,reseña google,La nueva lata de ZenithZest Mango es hermosa y el sabor increíble
+70,2026-10-29,tienda online,"Me encanta el sabor de ZenithZest Mango, me da energía para toda la mañana"
+71,2026-10-29,reseña google,La lata de ZenithZest Berry llegó abollada y nadie me respondió el reclamo
+72,2026-10-16,reseña google,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+73,2026-10-13,encuesta,¿Alguien sabe si ZenithZest Ginger tiene cafeína?
+74,2026-10-29,tienda online,"ZenithZest Zero es el mejor jugo energético que probé, súper natural"
+75,2026-10-05,x,"Excelente ZenithZest Zero, no tiene ese gusto artificial de otras marcas"
+76,2026-11-11,tienda online,"Me cayó pésimo ZenithZest Citrus, me dio dolor de cabeza"
+77,2026-10-15,instagram,Compré ZenithZest Zero para entrenar y rindo muchísimo mejor
+78,2026-11-12,x,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+79,2026-10-26,tienda online,"ZenithZest Ginger me salvó la semana de parciales, muy bueno"
+80,2026-10-06,tienda online,"Recomiendo ZenithZest Berry a todos, ideal para la facultad"
+81,2026-10-29,instagram,"Por fin un energético sin tanta azúcar, ZenithZest Zero es genial"
+82,2026-10-19,reseña google,"Por fin un energético sin tanta azúcar, ZenithZest Ginger es genial"
+83,2026-10-07,instagram,Probé ZenithZest Citrus ayer en la oficina
+84,2026-10-18,x,"Me encanta el sabor de ZenithZest Citrus, me da energía para toda la mañana"
+85,2026-10-26,x,ZenithZest sacó un sabor nuevo de ZenithZest Berry
+86,2026-11-01,tienda online,"Por fin un energético sin tanta azúcar, ZenithZest Ginger es genial"
+87,2026-10-28,instagram,"Me encanta el sabor de ZenithZest Citrus, me da energía para toda la mañana"
+88,2026-10-17,instagram,"Me encanta el sabor de ZenithZest Mango, me da energía para toda la mañana"
+89,2026-10-17,instagram,La lata de ZenithZest Mango llegó abollada y nadie me respondió el reclamo
+90,2026-10-27,tienda online,"Recomiendo ZenithZest Ginger a todos, ideal para la facultad"
+91,2026-10-16,instagram,"ZenithZest Ginger es demasiado dulce, no lo vuelvo a comprar"
+92,2026-10-12,x,¿Alguien sabe si ZenithZest Mango tiene cafeína?
+93,2026-11-03,x,ZenithZest sacó un sabor nuevo de ZenithZest Berry
+94,2026-10-18,tienda online,"Por fin un energético sin tanta azúcar, ZenithZest Citrus es genial"
+95,2026-10-01,instagram,¿Alguien sabe si ZenithZest Mango tiene cafeína?
+96,2026-10-31,x,La lata de ZenithZest Ginger llegó abollada y nadie me respondió el reclamo
+97,2026-11-12,encuesta,Probé ZenithZest Zero ayer en la oficina
+98,2026-10-20,x,"ZenithZest Ginger me salvó la semana de parciales, muy bueno"
+99,2026-11-10,x,¿Alguien sabe si ZenithZest Citrus tiene cafeína?
+100,2026-10-09,instagram,"Recomiendo ZenithZest Mango a todos, ideal para la facultad"
+101,2026-10-11,instagram,La nueva lata de ZenithZest Zero es hermosa y el sabor increíble
+102,2026-11-12,tienda online,"ZenithZest Ginger me salvó la semana de parciales, muy bueno"
+103,2026-10-30,x,El sabor de ZenithZest Mango cambió y ahora es horrible
+104,2026-10-17,tienda online,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+105,2026-10-16,instagram,Compré ZenithZest Berry y otro energético para comparar
+106,2026-10-23,x,¿Alguien sabe si ZenithZest Citrus tiene cafeína?
+107,2026-10-31,tienda online,"ZenithZest Mango me salvó la semana de parciales, muy bueno"
+108,2026-11-02,instagram,"Excelente ZenithZest Citrus, no tiene ese gusto artificial de otras marcas"
+109,2026-10-26,reseña google,"ZenithZest Citrus es el mejor jugo energético que probé, súper natural"
+110,2026-10-20,x,"Me encanta el sabor de ZenithZest Berry, me da energía para toda la mañana"
+111,2026-11-12,reseña google,"Por fin un energético sin tanta azúcar, ZenithZest Citrus es genial"
+112,2026-10-10,tienda online,"Recomiendo ZenithZest Zero a todos, ideal para la facultad"
+113,2026-11-02,encuesta,"Carísimo para lo que es, ZenithZest Mango no vale la pena"
+114,2026-11-02,reseña google,"Carísimo para lo que es, ZenithZest Ginger no vale la pena"
+115,2026-11-13,x,Probé ZenithZest Ginger ayer en la oficina
+116,2026-11-10,tienda online,"Me encanta el sabor de ZenithZest Citrus, me da energía para toda la mañana"
+117,2026-11-05,instagram,ZenithZest Zero está en promoción esta semana en el súper
+118,2026-10-17,instagram,La lata de ZenithZest Zero llegó abollada y nadie me respondió el reclamo
+119,2026-11-04,instagram,"ZenithZest Ginger es el mejor jugo energético que probé, súper natural"
+120,2026-10-17,instagram,"Me cayó pésimo ZenithZest Zero, me dio dolor de cabeza"
+121,2026-10-15,encuesta,Vi que ZenithZest Citrus ahora viene en botella de vidrio
+122,2026-10-31,tienda online,"ZenithZest Mango me salvó la semana de parciales, muy bueno"
+123,2026-11-08,x,La lata de ZenithZest Mango llegó abollada y nadie me respondió el reclamo
+124,2026-11-06,x,La nueva lata de ZenithZest Ginger es hermosa y el sabor increíble
+125,2026-10-18,instagram,"Me encanta el sabor de ZenithZest Zero, me da energía para toda la mañana"
+126,2026-11-03,tienda online,"Pésima experiencia con la tienda online de ZenithZest, el pedido nunca llegó"
+127,2026-11-05,x,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+128,2026-10-02,tienda online,"ZenithZest Zero es el mejor jugo energético que probé, súper natural"
+129,2026-10-18,encuesta,"Por fin un energético sin tanta azúcar, ZenithZest Zero es genial"
+130,2026-11-07,instagram,"Excelente ZenithZest Mango, no tiene ese gusto artificial de otras marcas"
+131,2026-10-24,x,"Por fin un energético sin tanta azúcar, ZenithZest Berry es genial"
+132,2026-10-24,x,El sabor de ZenithZest Mango cambió y ahora es horrible
+133,2026-10-02,x,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+134,2026-10-26,tienda online,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+135,2026-10-25,tienda online,"Nunca hay stock de ZenithZest Berry en el supermercado, qué mala distribución"
+136,2026-10-21,tienda online,"Recomiendo ZenithZest Mango a todos, ideal para la facultad"
+137,2026-10-01,tienda online,Probé ZenithZest Citrus ayer en la oficina
+138,2026-10-25,reseña google,"ZenithZest Zero es el mejor jugo energético que probé, súper natural"
+139,2026-10-04,tienda online,"ZenithZest Berry me salvó la semana de parciales, muy bueno"
+140,2026-10-16,tienda online,La nueva lata de ZenithZest Citrus es hermosa y el sabor increíble
+141,2026-10-24,encuesta,"Recomiendo ZenithZest Citrus a todos, ideal para la facultad"
+142,2026-11-05,reseña google,ZenithZest sacó un sabor nuevo de ZenithZest Zero
+143,2026-10-27,encuesta,"ZenithZest Mango es el mejor jugo energético que probé, súper natural"
+144,2026-11-01,instagram,"Carísimo para lo que es, ZenithZest Berry no vale la pena"
+145,2026-10-11,encuesta,Compré ZenithZest Citrus y otro energético para comparar
+146,2026-10-17,tienda online,La nueva lata de ZenithZest Berry es hermosa y el sabor increíble
+147,2026-10-31,reseña google,"Excelente ZenithZest Berry, no tiene ese gusto artificial de otras marcas"
+148,2026-11-11,x,"Me cayó pésimo ZenithZest Citrus, me dio dolor de cabeza"
+149,2026-11-05,x,"Por fin un energético sin tanta azúcar, ZenithZest Zero es genial"
+150,2026-10-28,x,"Recomiendo ZenithZest Zero a todos, ideal para la facultad"
+151,2026-10-12,tienda online,"Excelente ZenithZest Mango, no tiene ese gusto artificial de otras marcas"
+152,2026-10-24,tienda online,"ZenithZest Citrus tiene gusto a jarabe, muy decepcionante"
+153,2026-10-27,encuesta,Vi que ZenithZest Mango ahora viene en botella de vidrio
+154,2026-10-25,tienda online,"Por fin un energético sin tanta azúcar, ZenithZest Citrus es genial"
+155,2026-10-18,reseña google,"Me encanta el sabor de ZenithZest Zero, me da energía para toda la mañana"
+156,2026-11-03,x,Vi que ZenithZest Ginger ahora viene en botella de vidrio
+157,2026-10-26,encuesta,"Excelente ZenithZest Zero, no tiene ese gusto artificial de otras marcas"
+158,2026-10-09,instagram,La nueva lata de ZenithZest Mango es hermosa y el sabor increíble
+159,2026-11-01,instagram,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+160,2026-10-29,x,"Por fin un energético sin tanta azúcar, ZenithZest Zero es genial"
+161,2026-10-10,reseña google,La lata de ZenithZest Citrus llegó abollada y nadie me respondió el reclamo
+162,2026-10-06,reseña google,Probé ZenithZest Zero ayer en la oficina
+163,2026-10-15,reseña google,"ZenithZest Citrus es demasiado dulce, no lo vuelvo a comprar"
+164,2026-10-09,tienda online,ZenithZest sacó un sabor nuevo de ZenithZest Berry
+165,2026-10-07,instagram,"ZenithZest Mango me salvó la semana de parciales, muy bueno"
+166,2026-10-25,tienda online,"El ZenithZest Citrus bien frío es una delicia, ya es mi favorito"
+167,2026-10-01,reseña google,"El ZenithZest Mango bien frío es una delicia, ya es mi favorito"
+168,2026-10-21,x,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+169,2026-10-16,instagram,"Excelente ZenithZest Ginger, no tiene ese gusto artificial de otras marcas"
+170,2026-10-04,instagram,ZenithZest sacó un sabor nuevo de ZenithZest Berry
+171,2026-10-17,x,"ZenithZest Mango me salvó la semana de parciales, muy bueno"
+172,2026-11-01,instagram,"ZenithZest Citrus tiene gusto a jarabe, muy decepcionante"
+173,2026-11-13,encuesta,"Nunca hay stock de ZenithZest Berry en el supermercado, qué mala distribución"
+174,2026-10-05,x,La nueva lata de ZenithZest Ginger es hermosa y el sabor increíble
+175,2026-10-13,x,"Excelente ZenithZest Berry, no tiene ese gusto artificial de otras marcas"
+176,2026-10-07,reseña google,La nueva lata de ZenithZest Berry es hermosa y el sabor increíble
+177,2026-11-01,encuesta,Compré ZenithZest Citrus para entrenar y rindo muchísimo mejor
+178,2026-10-10,encuesta,Probé ZenithZest Ginger ayer en la oficina
+179,2026-10-10,encuesta,"Me encanta el sabor de ZenithZest Ginger, me da energía para toda la mañana"
+180,2026-10-26,encuesta,"Me encanta el sabor de ZenithZest Citrus, me da energía para toda la mañana"
+181,2026-10-06,x,¿Alguien sabe si ZenithZest Mango tiene cafeína?
+182,2026-10-30,instagram,Compré ZenithZest Ginger para entrenar y rindo muchísimo mejor
+183,2026-10-22,encuesta,"ZenithZest Berry me salvó la semana de parciales, muy bueno"
+184,2026-10-18,instagram,"Me encanta el sabor de ZenithZest Mango, me da energía para toda la mañana"
+185,2026-10-14,encuesta,"ZenithZest Ginger es el mejor jugo energético que probé, súper natural"
+186,2026-10-06,instagram,La nueva lata de ZenithZest Zero es hermosa y el sabor increíble
+187,2026-11-04,encuesta,La lata de ZenithZest Berry llegó abollada y nadie me respondió el reclamo
+188,2026-10-02,encuesta,"Recomiendo ZenithZest Zero a todos, ideal para la facultad"
+189,2026-10-25,instagram,"ZenithZest Mango me salvó la semana de parciales, muy bueno"
+190,2026-10-13,instagram,"Me encanta el sabor de ZenithZest Berry, me da energía para toda la mañana"
+191,2026-10-18,tienda online,¿Alguien sabe si ZenithZest Berry tiene cafeína?
+192,2026-10-17,tienda online,Compré ZenithZest Mango y otro energético para comparar
+193,2026-11-08,instagram,¿Alguien sabe si ZenithZest Mango tiene cafeína?
+194,2026-10-31,encuesta,"Excelente ZenithZest Mango, no tiene ese gusto artificial de otras marcas"
+195,2026-10-28,encuesta,ZenithZest Berry está en promoción esta semana en el súper
+196,2026-10-01,tienda online,"Gran atención al cliente de ZenithZest, me cambiaron un pack sin problema"
+197,2026-10-16,tienda online,Vi que ZenithZest Ginger ahora viene en botella de vidrio
+198,2026-11-08,instagram,ZenithZest Berry está en promoción esta semana en el súper
+199,2026-10-16,encuesta,"ZenithZest Citrus me salvó la semana de parciales, muy bueno"
+200,2026-11-05,reseña google,"Me encanta el sabor de ZenithZest Zero, me da energía para toda la mañana"

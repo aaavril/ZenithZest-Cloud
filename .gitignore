@@ -1,0 +1,23 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+plan.txt
+crash.log
+*.auto.tfvars
+bootstrap.tfvars
+# .terraform.lock.hcl SÍ se versiona
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# Credenciales: nunca
+*.json.key
+*-key.json
+credentials*.json
+.env
