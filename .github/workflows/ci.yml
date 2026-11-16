@@ -74,6 +74,42 @@ jobs:
       - name: Trivy - bloquea si hay CRITICAL con parche disponible
         run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.58.1 image --severity CRITICAL --ignore-unfixed --exit-code 1 zenithzest:ci
 
+  costos:
+    # Infracost: comenta en el PR el costo mensual estimado de la infraestructura y su diferencia.
+    # Requiere el secreto INFRACOST_API_KEY (gratis en infracost.io); sin él, el job se saltea.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+    steps:
+      - name: ¿Está cargada la clave de Infracost?
+        id: clave
+        run: |
+          if [ -n "$INFRACOST_API_KEY" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "ok=false" >> "$GITHUB_OUTPUT"; echo "Sin INFRACOST_API_KEY: se saltea."; fi
+      - if: steps.clave.outputs.ok == 'true'
+        uses: actions/checkout@v4
+      - if: steps.clave.outputs.ok == 'true'
+        uses: infracost/actions/setup@v3
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+      - if: steps.clave.outputs.ok == 'true'
+        name: Estimar costo (los valores de ejemplo no cambian el costo)
+        run: |
+          infracost breakdown --path=infra/envs/dev \
+            --terraform-var-file=dev.tfvars \
+            --terraform-var="project_id=zenithzest-ejemplo" \
+            --terraform-var="image=us-central1-docker.pkg.dev/zenithzest-ejemplo/zenithzest/app:pr" \
+            --terraform-var='alert_emails=["equipo@ejemplo.com"]' \
+            --format=json --out-file=/tmp/infracost.json
+      - if: steps.clave.outputs.ok == 'true'
+        name: Comentar el costo en el PR
+        run: |
+          infracost comment github --path=/tmp/infracost.json \
+            --repo="$GITHUB_REPOSITORY" --github-token="${{ github.token }}" \
+            --pull-request="${{ github.event.pull_request.number }}" --behavior=update
+
   plan:
     needs: [terraform-calidad]
     runs-on: ubuntu-latest

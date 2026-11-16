@@ -28,27 +28,34 @@ data/                  opiniones.csv (200) y opiniones_crisis.csv (40, para disp
 scripts/               generador de los CSV de prueba
 infra/bootstrap/       una sola vez, a mano: APIs, bucket del state, Artifact Registry, OIDC, presupuesto
 infra/modules/         storage, job, scheduler, secret, monitoring
-infra/envs/dev/        root module del entorno (main, iam, variables, outputs, versions, backend, dev.tfvars)
+infra/envs/dev/        root module del entorno (main, iam, variables, outputs, providers, backend, dev.tfvars)
 .github/workflows/     ci.yml (PR), deploy.yml (main), destroy.yml (manual), run-job.yml (manual)
 docs/                  proveedor, arquitectura, IAM, FinOps, seguridad, runbook, guion de la presentación
 ```
 
+![Arquitectura](docs/arquitectura.png)
+
 ## Desplegar
 
-Requisitos: cuenta de Google Cloud con facturación (créditos), `gcloud`, Terraform ≥ 1.6, repo en GitHub.
+Requisitos: cuenta de Google Cloud con facturación (créditos) y este repo en GitHub. Los pasos manuales se hacen en
+**Cloud Shell** (la terminal del navegador de la consola de Google Cloud, botón `>_`), que ya trae `gcloud`,
+Terraform y git: no hay que instalar nada. El resto lo corre GitHub Actions.
 
-1. **Proyecto y login**
+1. **Proyecto** (en Cloud Shell, ya autenticado)
    ```bash
+   git clone https://github.com/aaavril/ZenithZest-Cloud.git && cd ZenithZest-Cloud
    gcloud projects create zenithzest-ucu-XXXX
    gcloud billing projects link zenithzest-ucu-XXXX --billing-account=XXXXXX-XXXXXX-XXXXXX
-   gcloud auth application-default login
+   gcloud config set project zenithzest-ucu-XXXX
    ```
+   (Desde la compu, en cambio: instalar `gcloud` y Terraform y correr `gcloud auth application-default login`.)
 2. **Bootstrap (una vez)**: copiar `infra/bootstrap/bootstrap.tfvars.example` a `bootstrap.tfvars`, completarlo y
    ```bash
    cd infra/bootstrap
    terraform init
    terraform apply -var-file=bootstrap.tfvars
    terraform output
+   gcloud storage cp terraform.tfstate gs://zenithzest-ucu-XXXX-tfstate/bootstrap/terraform.tfstate  # respaldo del state del bootstrap
    ```
 3. **Variables del repositorio** (GitHub → Settings → Secrets and variables → Actions → *Variables*, no secrets):
    `GCP_PROJECT_ID`, `GCP_REGION` (`us-central1`), `GCP_WIF_PROVIDER`, `GCP_SERVICE_ACCOUNT`, `TF_STATE_BUCKET`,
@@ -68,10 +75,20 @@ Actions → `destroy` → escribir `destruir`. El último paso muestra que el st
 El bootstrap (bucket del state, registro, OIDC, presupuesto) se borra al final del curso con
 `terraform destroy -var-file=bootstrap.tfvars` en `infra/bootstrap` (vaciar antes el bucket del state).
 
+## Extras
+
+- **Comparación con un modelo local:** `scripts/comparar_modelos.py` compara un reporte del job (API) con VADER
+  adaptado al español y genera la coincidencia y la matriz de confusión:
+  ```bash
+  pip install vaderSentiment==3.3.2
+  python scripts/comparar_modelos.py reporte.csv --md docs/comparacion-modelos.md
+  ```
+- **Tendencia diaria del sentimiento:** gráfico de línea en el dashboard de Cloud Monitoring.
+
 ## Calidad y seguridad
 
-- PR: tests de la app, `terraform fmt`/`validate`, `tflint`, Checkov (bloqueante), gitleaks, Trivy sobre la imagen y
-  `terraform plan` publicado como comentario.
+- PR: tests de la app, `terraform fmt`/`validate`, `tflint`, Checkov (bloqueante), gitleaks, Trivy sobre la imagen,
+  `terraform plan` publicado como comentario e Infracost (costo estimado del PR, si está el secreto `INFRACOST_API_KEY`).
 - Sin claves de larga duración: GitHub Actions entra a Google Cloud por OIDC (Workload Identity Federation) y solo
   desde este repositorio.
 - Detalle en [docs/seguridad.md](docs/seguridad.md) e [docs/iam.md](docs/iam.md).

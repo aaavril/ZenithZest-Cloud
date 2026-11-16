@@ -1,5 +1,10 @@
 # Arquitectura
 
+![Diagrama de arquitectura](arquitectura.png)
+
+Imagen generada desde `arquitectura.mmd` (diagrams-as-code, Mermaid). También en `arquitectura.svg`. Para
+regenerarla: `docker run --rm -u root -v "$PWD/docs:/data" minlag/mermaid-cli:11.4.2 -i /data/arquitectura.mmd -o /data/arquitectura.png -b white -w 1800`.
+
 ```mermaid
 flowchart LR
   subgraph GitHub
