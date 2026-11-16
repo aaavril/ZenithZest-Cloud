@@ -1,7 +1,7 @@
 # Copiar a bootstrap.tfvars (ignorado por git) y completar.
 project_id      = "zenithzest-ucu-XXXX"
 region          = "us-central1"
-github_repo     = "tu-usuario/zenithzest"
+github_repo     = "aaavril/ZenithZest-Cloud"
 billing_account = "XXXXXX-XXXXXX-XXXXXX"
 budget_usd      = 10
 team_emails     = ["integrante1@correo.com", "integrante2@correo.com"]
