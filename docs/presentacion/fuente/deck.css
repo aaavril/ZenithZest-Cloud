@@ -1,0 +1,113 @@
+:root {
+  --azul: #1A73E8;
+  --rojo: #D93025;
+  --amarillo: #F9AB00;
+  --verde: #1E8E3E;
+  --tinta: #202124;
+  --texto: #5F6368;
+  --fondo: #FCFCFD;
+  --gris: #F1F3F4;
+  --linea: #DADCE0;
+  --blanco: #FEFEFE;
+}
+
+body { font-family: 'Roboto', Arial, sans-serif; }
+
+section {
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: 'Roboto', Arial, sans-serif;
+  padding: 128px 128px 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
+  counter-increment: page;
+}
+
+/* Franja de cuatro colores arriba de cada slide */
+.barra { position: absolute; left: 0; top: 0; width: 1920px; height: 12px; display: flex; }
+.barra div { flex: 1; height: 12px; }
+.b1 { background: var(--azul); }
+.b2 { background: var(--rojo); }
+.b3 { background: var(--amarillo); }
+.b4 { background: var(--verde); }
+
+/* Encabezado */
+.cabeza { display: flex; flex-direction: column; gap: 16px; }
+.kicker { font-size: 24px; font-weight: 500; color: var(--azul); letter-spacing: 2px; text-transform: uppercase; }
+h2 { font-size: 64px; font-weight: 500; line-height: 1.1; color: var(--tinta); }
+.lead { font-size: 32px; line-height: 1.35; color: var(--texto); }
+
+/* Pie con número de página */
+.pie { position: absolute; left: 128px; bottom: 64px; width: 1664px; display: flex; justify-content: space-between; }
+.pie p { font-size: 24px; color: var(--texto); }
+.pagina::after { content: counter(page); }
+
+/* Tarjetas */
+.fila { display: flex; gap: 24px; }
+.grilla3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.grilla2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.tarjeta { flex: 1; background: var(--blanco); border: 2px solid var(--linea); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 16px; }
+.tarjeta h3 { font-size: 32px; font-weight: 500; line-height: 1.2; color: var(--tinta); }
+.tarjeta p { font-size: 24px; line-height: 1.4; color: var(--texto); }
+.tarjeta .paso { font-size: 24px; font-weight: 700; color: var(--azul); }
+.icono { width: 48px; height: 48px; }
+.c-azul { color: var(--azul); }
+.c-rojo { color: var(--rojo); }
+.c-verde { color: var(--verde); }
+.c-amarillo { color: #B06000; }
+
+/* Cifras grandes */
+.datos { display: flex; gap: 48px; }
+.dato { display: flex; flex-direction: column; gap: 8px; }
+.cifra { font-size: 120px; font-weight: 700; line-height: 1; }
+.cifra-azul { color: var(--azul); }
+.cifra-verde { color: var(--verde); }
+.cifra-rojo { color: var(--rojo); }
+.cifra-gris { color: var(--texto); }
+.rotulo { font-size: 32px; line-height: 1.3; color: var(--texto); }
+.dato .cifra-chica { font-size: 64px; font-weight: 700; line-height: 1.1; }
+.datos3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.datos3 .dato { background: var(--blanco); border: 2px solid var(--linea); border-radius: 16px; padding: 32px; }
+.datos3 .rotulo { font-size: 24px; }
+
+/* Columnas y listas */
+.cols { display: flex; gap: 48px; flex: 1; }
+.col { display: flex; flex-direction: column; gap: 24px; }
+.lista { font-size: 32px; line-height: 1.35; color: var(--tinta); }
+.lista li { margin-bottom: 16px; }
+.nota { font-size: 24px; line-height: 1.4; color: var(--texto); }
+
+/* Imágenes y capturas */
+.marco { background: var(--blanco); border: 2px solid var(--linea); border-radius: 16px; padding: 16px; display: flex; align-items: center; justify-content: center; }
+
+/* Tablas */
+.tabla { font-size: 24px; color: var(--tinta); font-family: 'Roboto', Arial, sans-serif; width: 1664px; }
+.tabla th { font-weight: 700; text-align: left; }
+.tabla td { text-align: left; }
+.tabla tr { background: var(--blanco); }
+.tabla .encabezado { background: var(--gris); }
+
+/* Portada */
+.portada { justify-content: space-between; padding: 128px; }
+.portada-cuerpo { display: flex; flex-direction: column; gap: 32px; width: 1180px; }
+.portada h1 { font-size: 120px; font-weight: 500; line-height: 1.05; color: var(--tinta); }
+.portada-pie { display: flex; gap: 48px; }
+.portada-pie p { font-size: 32px; color: var(--texto); }
+.portada-pie .equipo { color: var(--tinta); font-weight: 500; }
+.circulo { position: absolute; }
+
+/* Slide de acento (demo) */
+.acento { background: var(--azul); color: var(--fondo); }
+.acento .kicker { color: var(--fondo); }
+.acento h2 { color: var(--fondo); font-size: 96px; }
+.acento .lista { color: var(--fondo); }
+.acento .pie p { color: var(--fondo); }
+
+/* Cierre */
+.suave { background: var(--gris); }
+
+/* Movimiento: llegada escalonada */
+@keyframes sube { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.anim { animation: sube 500ms ease-out both; animation-delay: calc(var(--i) * 120ms); }

@@ -1,0 +1,17 @@
+<section id="cicd">
+<div class="barra"><div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div></div>
+<div class="cabeza">
+<p class="kicker">CI/CD</p>
+<h2>Del Pull Request a la nube, sin claves</h2>
+</div>
+<div class="cols">
+<div class="col" style="width:955px; gap:16px;">
+<div class="tarjeta anim" style="--i:1"><h3>En cada Pull Request</h3><p>Tests · fmt · validate · tflint · Checkov · gitleaks · Trivy · plan comentado en el PR · Infracost</p></div>
+<div class="tarjeta anim" style="--i:2"><h3>Al hacer merge a main</h3><p>Imagen app:&lt;sha&gt; → aprobación humana en el environment → se aplica exactamente el plan revisado</p></div>
+<div class="tarjeta anim" style="--i:3"><h3>Sin claves guardadas</h3><p>GitHub entra a Google Cloud por OIDC, con credenciales que duran una ejecución y solo desde este repo</p></div>
+</div>
+<div class="marco"><img src="/_blob/7e5d512244d706e10dfbccd4faedcac6" alt="Diagrama de actividad UML del pipeline: Pull Request con chequeos en paralelo, plan comentado, merge, build, aprobación, apply y destroy" style="width:629px; height:600px; object-fit:contain;"></div>
+</div>
+<div class="pie"><p>ZenithZest · Cloud Computing UCU</p><p class="pagina"></p></div>
+<aside>Sebastián (5:00–7:00). Cuatro workflows: ci, deploy, destroy y run-job. Dos compuertas humanas: aprobar el PR revisando el plan, y aprobar el despliegue en el environment dev. OIDC: el token que firma GitHub dice de qué repo viene, y Google Cloud solo lo acepta si es aaavril/ZenithZest-Cloud; la credencial dura una ejecución, no hay claves que se puedan filtrar. Si hay tiempo, mostrar el PR con el plan comentado.</aside>
+</section>

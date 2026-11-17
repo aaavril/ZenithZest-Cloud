@@ -1,0 +1,22 @@
+<section id="secuencia">
+<div class="barra"><div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div></div>
+<div class="cabeza">
+<p class="kicker">Diseño</p>
+<h2>Una ejecución, paso a paso</h2>
+</div>
+<div class="cols">
+<div class="marco"><img src="/_blob/d9b0778f92977ec88481cbb62924ac5b" alt="Diagrama de secuencia UML de una ejecución diaria del job, desde Cloud Scheduler hasta el aviso por Discord y la evaluación de alertas" style="width:896px; height:600px; object-fit:contain;"></div>
+<div class="col" style="width:688px;">
+<ol class="lista">
+<li>09:00: el Scheduler ejecuta el job</li>
+<li>Lee hasta 200 opiniones</li>
+<li>La IA puntúa cada una de −1 a 1</li>
+<li>Escribe el reporte CSV y HTML</li>
+<li>Publica el % por sentimiento</li>
+<li>Avisa a Discord; si el aviso falla, el job no se cae</li>
+</ol>
+</div>
+</div>
+<div class="pie"><p>ZenithZest · Cloud Computing UCU</p><p class="pagina"></p></div>
+<aside>Sebastián (3:00–3:30). Diagrama de secuencia: una ejecución. Umbral de clasificación: puntaje mayor o igual a 0,25 es positivo, menor o igual a −0,25 negativo, el resto neutro. El último paso lo cambiamos después de la primera prueba: Discord rechazó el aviso y eso hacía fallar todo el job; ahora el aviso no es bloqueante. Lo retomamos en aprendizajes.</aside>
+</section>

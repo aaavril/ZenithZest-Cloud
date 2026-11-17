@@ -1,0 +1,17 @@
+<section id="practicas">
+<div class="barra"><div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div></div>
+<div class="cabeza">
+<p class="kicker">Infraestructura como código</p>
+<h2>Las buenas prácticas que pide la consigna</h2>
+</div>
+<div class="grilla3">
+<div class="tarjeta anim" style="--i:1"><x-icon name="Database" class="icono c-azul"></x-icon><h3>State remoto con lock</h3><p>Bucket de Cloud Storage versionado, con bloqueo nativo; un state por entorno.</p></div>
+<div class="tarjeta anim" style="--i:2"><x-icon name="Lock" class="icono c-rojo"></x-icon><h3>Versiones fijadas</h3><p>Terraform 1.9.8, provider ~> 6.0 y el lock file versionado en Git.</p></div>
+<div class="tarjeta anim" style="--i:3"><x-icon name="Key" class="icono c-amarillo"></x-icon><h3>Etiquetas obligatorias</h3><p>project · team · env · owner en todos los recursos, desde el provider.</p></div>
+<div class="tarjeta anim" style="--i:4"><x-icon name="Check" class="icono c-verde"></x-icon><h3>Variables validadas</h3><p>Tipo, descripción y validación en todas; rechaza un ID inválido o una imagen latest.</p></div>
+<div class="tarjeta anim" style="--i:5"><x-icon name="Verified" class="icono c-azul"></x-icon><h3>Imagen por SHA</h3><p>Nunca latest: cada despliegue usa el commit exacto, y volver atrás es volver al commit anterior.</p></div>
+<div class="tarjeta anim" style="--i:6"><x-icon name="Wrench" class="icono c-rojo"></x-icon><h3>Destroy limpio</h3><p>Un clic en destroy.yml y la evidencia de que el state quedó vacío.</p></div>
+</div>
+<div class="pie"><p>ZenithZest · Cloud Computing UCU</p><p class="pagina"></p></div>
+<aside>Avril (4:15–5:00). Cada tarjeta es un punto de la sección 2.3 de la consigna. Si preguntan por el state: guarda el mapa entre el código y los IDs reales, puede tener secretos, por eso va a un bucket privado y nunca a Git. Si preguntan por el lock: impide que dos procesos apliquen cambios a la vez.</aside>
+</section>

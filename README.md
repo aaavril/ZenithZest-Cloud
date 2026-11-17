@@ -30,7 +30,7 @@ infra/bootstrap/       una sola vez, a mano: APIs, bucket del state, Artifact Re
 infra/modules/         storage, job, scheduler, secret, monitoring
 infra/envs/dev/        root module del entorno (main, iam, variables, outputs, providers, backend, dev.tfvars)
 .github/workflows/     ci.yml (PR), deploy.yml (main), destroy.yml (manual), run-job.yml (manual)
-docs/                  proveedor, arquitectura, diagramas UML (docs/uml), IAM, FinOps, seguridad, runbook, bitácora, guion
+docs/                  proveedor, arquitectura, diagramas UML (docs/uml), IAM, FinOps, seguridad, runbook, bitácora, presentación
 ```
 
 ![Arquitectura](docs/arquitectura.png)
@@ -89,6 +89,8 @@ El bootstrap (bucket del state, registro, OIDC, presupuesto) se borra al final d
 - **Crisis simulada** (`opiniones_crisis.csv`): 90 % negativas → la alerta "> 40 %" se disparó y llegó el mail.
 - **Destroy:** todo el entorno borrado y el state verificado vacío.
 - Problemas, causas y aprendizajes del proceso: [docs/bitacora.md](docs/bitacora.md).
+
+**Presentación de la defensa:** [docs/presentacion/](docs/presentacion/README.md) (16 slides con notas del orador).
 
 ## Extras
 
