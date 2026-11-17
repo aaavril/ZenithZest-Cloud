@@ -64,6 +64,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 
 | Problema | Solución |
 |---|---|
+| El primer PR falló en Checkov con una regla nueva (CKV_GCP_125) que localmente pasaba | La acción de Checkov baja la última versión (3.4.5) y localmente se usaba la 3.2; la regla nueva pide restringir el OIDC por `assertion.sub`, y nosotros restringimos por `assertion.repository` | Justificado en el código (es la forma que recomienda Google) y documentado en seguridad.md. Aprendizaje: fijar la versión del escáner en CI para que una actualización no rompa el pipeline sin aviso. |
 | tflint marcó módulos sin `required_version` ni `required_providers` | Un `versions.tf` en cada módulo |
 | Checkov: 11 hallazgos | Revisados uno por uno y justificados en el código; Checkov pasó a bloquear el merge (ver [seguridad.md](seguridad.md)) |
 | Un regex de validación de mails rompía el HCL (`\s` no es un escape válido) | Escapar como `\\s` |
