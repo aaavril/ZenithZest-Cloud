@@ -6,14 +6,15 @@
 </div>
 <div class="cols">
 <div class="col" style="width:700px;">
-<div class="dato anim" style="--i:1"><p class="cifra cifra-azul">91 %</p><p class="rotulo">de coincidencia con VADER, un modelo local y gratuito, sobre las 200 opiniones reales</p></div>
+<div class="dato anim" style="--i:1"><p class="cifra cifra-azul">91 %</p><p class="rotulo">de las 200 opiniones reales, VADER y la API dijeron lo mismo</p></div>
+<div class="tarjeta anim" style="--i:2"><h3>¿Qué es VADER?</h3><p>Un modelo de sentimiento gratuito que corre en la compu: suma el puntaje de cada palabra según un diccionario en inglés. Le agregamos unas 60 palabras en español.</p></div>
 </div>
 <div class="col" style="width:916px; gap:16px;">
-<div class="tarjeta anim" style="--i:2"><h3>Negativas: 40 de 40</h3><p>Las quejas son claras para los dos modelos.</p></div>
-<div class="tarjeta anim" style="--i:3"><h3>18 diferencias</h3><p>Frases neutras que la API vio levemente positivas, como “sacó un sabor nuevo”.</p></div>
-<div class="tarjeta anim" style="--i:4"><h3>Un falso amigo</h3><p>En inglés, “sin” es “pecado” (−2,6): VADER leyó “sin problema” como negativo. Al corregirlo, de 85 % a 91 %.</p></div>
+<div class="tarjeta anim" style="--i:3"><h3>Negativas: 40 de 40</h3><p>Las quejas son claras para los dos modelos.</p></div>
+<div class="tarjeta anim" style="--i:4"><h3>18 diferencias</h3><p>Frases neutras que la API vio levemente positivas, como “sacó un sabor nuevo”.</p></div>
+<div class="tarjeta anim" style="--i:5"><h3>Un “falso amigo”</h3><p>Una palabra que se escribe igual en dos idiomas pero significa otra cosa. En inglés “sin” es “pecado”, así que VADER leyó “sin problema” como muy negativo. Al corregirlo, la coincidencia pasó de 85 % a 91 %.</p></div>
 </div>
 </div>
 <div class="pie"><p>ZenithZest · Cloud Computing UCU</p><p class="pagina"></p></div>
-<aside>Avril (12:15–12:45). El extra de la consigna: comparar la API con un modelo local. VADER es un modelo en inglés; le agregamos un léxico básico en español. La primera comparación dio 85 % y encontramos por qué: “sin” en inglés significa pecado. Aprendizaje: un modelo pensado para otro idioma puede fallar en silencio, hay que mirar los ejemplos y no solo el porcentaje. Limitación: los datos son sintéticos, con opiniones reales coincidiría menos. Detalle en docs/comparacion-modelos.md.</aside>
+<aside>Avril (12:15–12:45). El extra: comparar la API paga con un modelo local gratuito. VADER no entiende el idioma como la API: le da a cada palabra un puntaje de un diccionario (en inglés) y los suma. Le agregamos palabras en español como "excelente" o "pésimo". La primera comparación dio 85 % y encontramos por qué: "sin" en inglés significa "pecado", así que "sin problema" sonaba muy negativo. Eso es un falso amigo: se escribe igual en los dos idiomas pero significa otra cosa. Aprendizaje: un modelo pensado para otro idioma puede fallar en silencio, hay que mirar los ejemplos y no solo el porcentaje. Para qué sirve: a escala, VADER podría resolver lo obvio gratis y dejar a la API solo los casos dudosos. Limitación: los datos son sintéticos; con opiniones reales coincidiría menos. Detalle en docs/comparacion-modelos.md.</aside>
 </section>
