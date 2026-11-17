@@ -10,6 +10,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 | 14/11 | Código, Terraform (bootstrap + 5 módulos), workflows y documentación. Validado localmente con Docker: `fmt`, `validate`, tflint, Checkov y tests. |
 | 16/11 | Repo en GitHub. Validaciones en todas las variables, `providers.tf`, Infracost, comparación con VADER, diagrama de arquitectura. |
 | 17/11 | Diagramas UML. Cuenta de Google Cloud (prueba gratuita), Terraform en Cloud Shell, proyecto `zenithzest-ucu-1711`, bootstrap (33 recursos), variables y environment en GitHub. Primer `deploy` en verde. Primer `run-job`: el análisis funcionó, pero falló el aviso a Discord; corregido. |
+| 17/11 | Deploy automático (push a `main`) con el arreglo, aprobado en el environment. `run-job` #2 en verde: reporte en el bucket y resumen recibido en Discord. |
 
 ## Problemas, causas y soluciones
 
