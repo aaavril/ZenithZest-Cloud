@@ -1,0 +1,22 @@
+<section id="tecnologias">
+<div class="barra"><div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div></div>
+<div class="cabeza">
+<p class="kicker">Repaso rápido</p>
+<h2>Las tecnologías, capa por capa</h2>
+</div>
+<table class="tabla">
+<tr class="encabezado"><th style="width:22%">Capa</th><th style="width:40%">Qué hace</th><th style="width:38%">Tecnología</th></tr>
+<tr><td>Código</td><td>El análisis de sentimiento (150 líneas)</td><td>Python 3.12</td></tr>
+<tr><td>Empaquetado</td><td>La imagen del job, por SHA</td><td>Docker · Artifact Registry</td></tr>
+<tr><td>Ejecución</td><td>Correr el job y programarlo cada día</td><td>Cloud Run Jobs · Cloud Scheduler</td></tr>
+<tr><td>Datos</td><td>Opiniones de entrada y reportes</td><td>Cloud Storage</td></tr>
+<tr><td>IA</td><td>Puntaje de sentimiento por opinión</td><td>Natural Language API</td></tr>
+<tr><td>Secretos</td><td>La URL del webhook de Discord</td><td>Secret Manager</td></tr>
+<tr><td>Observabilidad</td><td>Métrica, dashboard, alertas y logs</td><td>Cloud Monitoring · Cloud Logging</td></tr>
+<tr><td>Infraestructura</td><td>Crear y destruir todo, con el state remoto</td><td>Terraform 1.9</td></tr>
+<tr><td>Automatización</td><td>Pruebas, plan, deploy y destroy</td><td>GitHub Actions + OIDC</td></tr>
+<tr><td>Seguridad en CI</td><td>Escaneo del código, la imagen y los secretos</td><td>Checkov · tflint · Trivy · gitleaks</td></tr>
+</table>
+<div class="pie"><p>ZenithZest · Cloud Computing UCU</p><p class="pagina"></p></div>
+<aside>Sebastián (2:00–2:45). Recorrer la tabla de arriba a abajo, como una pila: el código se empaqueta, se ejecuta en Cloud Run, lee y escribe datos, usa la IA, guarda el secreto y se observa. Todo eso lo crea Terraform y lo despliega GitHub Actions. Cerrar con el pase a la slide siguiente: de todos los proveedores, por qué estas piezas son de Google Cloud.</aside>
+</section>

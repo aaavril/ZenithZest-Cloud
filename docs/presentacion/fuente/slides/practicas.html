@@ -2,7 +2,7 @@
 <div class="barra"><div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div></div>
 <div class="cabeza">
 <p class="kicker">Infraestructura como código</p>
-<h2>Las buenas prácticas que pide la consigna</h2>
+<h2>Terraform: las bases que aplicamos</h2>
 </div>
 <div class="grilla3">
 <div class="tarjeta anim" style="--i:1"><x-icon name="Database" class="icono c-azul"></x-icon><h3>State remoto con lock</h3><p>Bucket de Cloud Storage versionado, con bloqueo nativo; un state por entorno.</p></div>
@@ -13,5 +13,5 @@
 <div class="tarjeta anim" style="--i:6"><x-icon name="Wrench" class="icono c-rojo"></x-icon><h3>Destroy limpio</h3><p>Un clic en destroy.yml y la evidencia de que el state quedó vacío.</p></div>
 </div>
 <div class="pie"><p>ZenithZest · Cloud Computing UCU</p><p class="pagina"></p></div>
-<aside>Avril (4:15–5:00). Cada tarjeta es un punto de la sección 2.3 de la consigna. Si preguntan por el state: guarda el mapa entre el código y los IDs reales, puede tener secretos, por eso va a un bucket privado y nunca a Git. Si preguntan por el lock: impide que dos procesos apliquen cambios a la vez.</aside>
+<aside>Avril (4:45–5:15). Introducción a Terraform antes de mostrar cómo lo armamos. Terraform es declarativo: describimos cómo queremos que quede la infraestructura y la herramienta calcula qué crear, cambiar o borrar (el plan). Lo recuerda en el state, que va a un bucket privado con bloqueo para que dos procesos no apliquen cambios a la vez, y nunca a Git porque puede tener secretos. Encima de eso, las bases: versiones fijadas, etiquetas en todo, variables validadas, imágenes por SHA y un destroy limpio.</aside>
 </section>

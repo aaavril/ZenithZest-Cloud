@@ -47,6 +47,7 @@ h2 { font-size: 64px; font-weight: 500; line-height: 1.1; color: var(--tinta); }
 /* Tarjetas */
 .fila { display: flex; gap: 24px; }
 .grilla3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.grilla4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px; }
 .grilla2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .tarjeta { flex: 1; background: var(--blanco); border: 2px solid var(--linea); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 16px; }
 .tarjeta h3 { font-size: 32px; font-weight: 500; line-height: 1.2; color: var(--tinta); }

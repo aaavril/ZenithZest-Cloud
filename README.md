@@ -90,7 +90,7 @@ El bootstrap (bucket del state, registro, OIDC, presupuesto) se borra al final d
 - **Destroy:** todo el entorno borrado y el state verificado vacío.
 - Problemas, causas y aprendizajes del proceso: [docs/bitacora.md](docs/bitacora.md).
 
-**Presentación de la defensa:** [docs/presentacion/](docs/presentacion/README.md) (16 slides con notas del orador).
+**Presentación de la defensa:** [docs/presentacion/](docs/presentacion/README.md) (18 slides con notas del orador).
 
 ## Extras
 
