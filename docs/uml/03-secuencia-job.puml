@@ -1,0 +1,64 @@
+@startuml 03-secuencia-job
+' Diagrama de secuencia UML: una ejecución diaria del job (app/main.py).
+title ZenithZest — Secuencia de una ejecución diaria del job
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam sequenceMessageAlign center
+autonumber
+
+participant "Cloud Scheduler\n(SA job-cron)" as sch
+participant "Cloud Run Jobs" as run
+participant "Contenedor\nmain.py\n(SA job-sa)" as job
+database "Bucket\nentrada" as bin
+participant "Natural\nLanguage API" as nl
+database "Bucket\nreportes" as bout
+participant "Cloud\nMonitoring" as mon
+participant "Secret\nManager" as sm
+participant "Discord /\nSlack" as hook
+actor "Equipo" as eq
+
+== 09:00 (America/Montevideo) o ejecución manual (run-job.yml) ==
+sch -> run : POST /v2/.../jobs/zenithzest-job:run\n(token OAuth, rol run.invoker)
+activate run
+run -> job : crea la tarea con la imagen app:<sha>
+activate job
+
+job -> bin : download_as_text("opiniones.csv")
+bin --> job : CSV (hasta MAX_OPINIONS = 200 filas)
+
+loop por cada opinión
+  job -> nl : analyzeSentiment(texto, idioma "es")
+  nl --> job : score (−1 a 1), magnitud
+  job -> job : clasificar: ≥ 0,25 positivo · ≤ −0,25 negativo · resto neutro
+end
+
+job -> job : resumir(): total y % por sentimiento
+job -> bout : upload AAAA-MM-DD/reporte-HHMMSS.csv
+job -> bout : upload AAAA-MM-DD/reporte-HHMMSS.html
+job -> mon : createTimeSeries(sentiment_pct{positivo, negativo, neutro})
+
+job -> sm : accessSecretVersion("zenithzest-webhook/latest")
+alt el secreto tiene valor
+  sm --> job : URL del webhook
+  job -> hook : POST {"content": resumen + ruta del reporte}
+  hook --> job : 200/204
+else secreto vacío o sin permiso
+  sm --> job : error
+  job -> job : log WARNING "Sin webhook" (el job no falla)
+end
+
+job --> run : exit 0
+deactivate job
+run --> sch : ejecución terminada
+deactivate run
+
+== Evaluación de alertas (Cloud Monitoring, cada 5 min) ==
+alt % negativo > 40
+  mon -> eq : email "ZenithZest - opiniones negativas > 40%"
+end
+alt la ejecución terminó con error (exit 1)
+  mon -> eq : email "ZenithZest - ejecución del job fallida"
+end
+@enduml

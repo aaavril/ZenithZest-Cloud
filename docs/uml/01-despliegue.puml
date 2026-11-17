@@ -1,0 +1,111 @@
+@startuml 01-despliegue
+' Diagrama de despliegue UML: dónde corre cada artefacto y cómo se comunican los nodos.
+title ZenithZest — Diagrama de despliegue
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam nodesep 40
+skinparam ranksep 50
+skinparam node {
+  BackgroundColor #FDFDFD
+  BorderColor #555555
+}
+skinparam artifact {
+  BackgroundColor #FFF8DC
+  BorderColor #A08C3C
+}
+skinparam database {
+  BackgroundColor #EAF2FB
+  BorderColor #4A78A8
+}
+left to right direction
+
+actor "Equipo\n(Avril, Sebastián)" as equipo
+
+node "Navegador" <<device>> as nav {
+  node "Cloud Shell" <<execution environment>> as shell {
+    artifact "infra/bootstrap/*.tf" as bootstrap_tf
+  }
+}
+
+node "GitHub" <<cloud>> as github {
+  artifact "Repositorio\naaavril/ZenithZest-Cloud" as repo
+  node "Runner ubuntu-latest" <<execution environment>> as runner {
+    artifact "ci.yml / deploy.yml\ndestroy.yml / run-job.yml" as workflows
+    artifact "Terraform 1.9\ninfra/envs/dev" as tf
+  }
+}
+
+node "Google Cloud — proyecto zenithzest-ucu" <<cloud>> as gcp {
+  node "IAM" <<service>> as iam {
+    artifact "Workload Identity Pool\ngithub / github-oidc" as wif
+    artifact "SA zenithzest-pipeline\nSA zenithzest-job-sa\nSA zenithzest-job-cron" as sas
+  }
+
+  node "Región us-central1" <<region>> as region {
+    node "Cloud Scheduler" <<service>> as scheduler {
+      artifact "zenithzest-job-diario\ncron 0 9 * * *" as cron
+    }
+    node "Cloud Run Jobs" <<execution environment>> as run {
+      node "Contenedor\npython:3.12-slim · USER 10001\n1 vCPU · 512 MiB" <<container>> as cont {
+        artifact "main.py" as app
+      }
+    }
+    node "Artifact Registry" <<service>> as ar {
+      artifact "zenithzest/app:<sha>" as imagen
+    }
+    node "Cloud Storage" <<service>> as gcs {
+      database "zz-dev-entrada" as b_in {
+        artifact "opiniones.csv\nopiniones_crisis.csv" as csv
+      }
+      database "zz-dev-reportes\n(TTL 14 días)" as b_out {
+        artifact "AAAA-MM-DD/reporte-*.csv\nAAAA-MM-DD/reporte-*.html" as rep
+      }
+      database "tfstate\n(versionado, lock)" as b_state {
+        artifact "zenithzest/dev/default.tfstate\nbootstrap/terraform.tfstate" as state
+      }
+    }
+  }
+
+  node "Servicios globales" <<service>> as glob {
+    node "Natural Language API" <<service>> as nl
+    node "Secret Manager" <<service>> as sm {
+      artifact "zenithzest-webhook" as secreto
+    }
+    node "Cloud Monitoring" <<service>> as mon {
+      artifact "métrica sentiment_pct\ndashboard\n2 alert policies" as mon_art
+    }
+    node "Cloud Logging" <<service>> as log {
+      artifact "_Default (7 días)" as logs
+    }
+    node "Cloud Billing" <<service>> as billing {
+      artifact "Presupuesto USD 10\n50 / 80 / 100 %" as budget
+    }
+  }
+}
+
+node "Discord / Slack" <<external system>> as hook
+node "Correo" <<external system>> as mail
+
+equipo --> nav : usa
+equipo --> repo : git push / PR
+shell --> gcp : terraform apply (bootstrap, una vez)
+repo --> runner : dispara workflows
+runner --> wif : HTTPS · token OIDC
+wif --> sas : credencial temporal
+runner --> ar : docker push (HTTPS)
+runner --> b_state : state + lock (HTTPS)
+runner --> gcp : terraform apply (API de Google)
+scheduler --> run : POST jobs:run (HTTPS + OAuth)
+ar --> run : pull imagen por SHA
+cont --> b_in : lee CSV
+cont --> b_out : escribe reportes
+cont --> nl : analyzeSentiment (gRPC)
+cont --> sm : accessSecretVersion
+cont --> mon : createTimeSeries
+cont ..> log : stdout JSON
+cont --> hook : HTTPS POST (resumen)
+mon --> mail : alertas
+billing --> mail : avisos de presupuesto
+@enduml

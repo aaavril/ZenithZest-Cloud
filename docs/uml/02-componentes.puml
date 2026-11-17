@@ -1,0 +1,54 @@
+@startuml 02-componentes
+' Diagrama de componentes UML: módulos de Terraform, qué crea cada uno y cómo se conectan
+' (las flechas llevan los outputs de un módulo a las variables de otro).
+title ZenithZest — Diagrama de componentes (Terraform)
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam ranksep 60
+skinparam nodesep 30
+skinparam component {
+  BackgroundColor #FDFDFD
+  BorderColor #555555
+}
+skinparam package {
+  BackgroundColor #F7F7F7
+  BorderColor #999999
+}
+
+package "infra/bootstrap — una vez, desde Cloud Shell" as boot {
+  component [APIs habilitadas] as apis
+  component [Bucket tfstate\nversionado · lock nativo] as tfstate
+  component [Artifact Registry\nzenithzest] as registry
+  component [OIDC: Workload Identity\nsolo aaavril/ZenithZest-Cloud] as wif
+  component [SA zenithzest-pipeline] as sa_pipe
+  component [Presupuesto USD 10\navisos 50/80/100 %] as budget
+}
+
+package "infra/envs/dev — root module (lo aplica el pipeline)" as dev {
+  component [main.tf · iam.tf · providers.tf\nlabels: project, team, env, owner] as root
+
+  component [module storage\n—\nbuckets entrada y reportes\nprivados · TTL · CSV de prueba] as m_storage
+  component [module job\n—\nCloud Run Job + SA job-sa\n1 vCPU · 512 MiB · 600 s] as m_job
+  component [module secret\n—\nzenithzest-webhook (vacío)\nsecretAccessor solo al job] as m_secret
+  component [module scheduler\n—\ncron 0 9 * * * + SA job-cron\nrun.invoker solo al job] as m_sched
+  component [module monitoring\n—\nmétrica sentiment_pct · dashboard\n2 alertas · logs 7 días] as m_mon
+}
+
+wif -down-> sa_pipe : workloadIdentityUser
+sa_pipe -down-> registry : artifactregistry.writer
+
+root -down-> m_storage : name_prefix, labels,\ninput_files
+root -down-> m_job : image (SHA), labels
+m_storage -right-> m_job : input_bucket,\nreports_bucket
+m_job -down-> m_secret : member
+m_job -down-> m_sched : job_name
+m_job -down-> m_mon : job_name
+m_job .up.> root : member → iam.tf\n(objectViewer, objectCreator,\nmetricWriter, serviceUsageConsumer)
+
+sa_pipe ..> root : terraform apply
+root ..> tfstate : backend "gcs"
+m_job ..> registry : imagen app:<sha>
+root ..> apis : requiere
+@enduml

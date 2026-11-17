@@ -1,0 +1,43 @@
+@startuml 05-casos-de-uso
+' Diagrama de casos de uso UML: quién interactúa con el sistema y para qué.
+title ZenithZest — Casos de uso
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+left to right direction
+
+actor "Equipo de\nmarketing de\nZenithZest" as negocio
+actor "Equipo de\nplataforma\n(Avril, Sebastián)" as plataforma
+actor "Cloud Scheduler" as reloj <<sistema>>
+actor "Natural Language API" as ia <<sistema>>
+
+rectangle "Sistema ZenithZest" {
+  usecase "Analizar el sentimiento\nde las opiniones" as UC1
+  usecase "Generar el reporte\nCSV / HTML" as UC2
+  usecase "Publicar la métrica\n% por sentimiento" as UC3
+  usecase "Notificar el resumen\npor webhook" as UC4
+  usecase "Consultar reporte\ny dashboard" as UC5
+  usecase "Recibir alerta de\nopiniones negativas" as UC6
+  usecase "Ejecutar el análisis\na demanda" as UC7
+  usecase "Desplegar / destruir\nla infraestructura" as UC8
+  usecase "Recibir alerta de\njob fallido o presupuesto" as UC9
+  usecase "Cargar o rotar\nel secreto del webhook" as UC10
+}
+
+reloj --> UC1 : todos los días 09:00
+plataforma --> UC7
+UC7 ..> UC1 : <<include>>
+UC1 ..> UC2 : <<include>>
+UC1 ..> UC3 : <<include>>
+UC1 ..> UC4 : <<include>>
+UC1 --> ia
+
+negocio --> UC5
+negocio --> UC6
+UC6 ..> UC3 : <<extend>>\n% negativo > 40
+
+plataforma --> UC8
+plataforma --> UC9
+plataforma --> UC10
+@enduml

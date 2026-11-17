@@ -1,0 +1,81 @@
+@startuml 04-actividad-cicd
+' Diagrama de actividad UML: flujo de un cambio, del Pull Request a producción (dev), y el destroy.
+title ZenithZest — Actividad del pipeline CI/CD
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+|Integrante|
+start
+:Crear rama y hacer el cambio
+(app, infra o docs);
+:Abrir Pull Request a main;
+
+|GitHub Actions — ci.yml|
+fork
+  :tests-app
+  (pytest);
+fork again
+  :terraform-calidad
+  fmt · validate · tflint · Checkov;
+fork again
+  :secretos
+  (gitleaks);
+fork again
+  :imagen
+  docker build · Trivy;
+fork again
+  :costos
+  (Infracost, si hay clave);
+end fork
+:plan
+OIDC → terraform plan;
+:Comentar el plan en el PR;
+
+if (¿todos los checks en verde?) then (no)
+  |Integrante|
+  :Corregir y volver a subir;
+  stop
+else (sí)
+endif
+
+|Integrante|
+:Revisar el plan (+ ~ -/+ -)
+y aprobar el PR;
+:Merge a main;
+
+|GitHub Actions — deploy.yml|
+:build: OIDC → docker build
+→ Trivy (CRITICAL bloquea)
+→ push app:<sha>;
+
+|Revisor (environment dev)|
+if (¿aprueba el despliegue?) then (no)
+  :Rechazado;
+  stop
+else (sí)
+endif
+
+|GitHub Actions — deploy.yml|
+:terraform plan -out=tfplan;
+:terraform apply tfplan
+(se aplica exactamente lo revisado);
+:terraform output;
+
+|Integrante|
+:Probar con run-job.yml
+(opiniones.csv / opiniones_crisis.csv);
+:Revisar reporte, dashboard y alertas;
+
+if (¿terminó la sesión de trabajo?) then (sí)
+  |GitHub Actions — destroy.yml|
+  :Confirmar "destruir";
+  :terraform destroy;
+  :Evidencia: state vacío;
+else (no)
+endif
+
+|Integrante|
+stop
+@enduml

@@ -30,10 +30,12 @@ infra/bootstrap/       una sola vez, a mano: APIs, bucket del state, Artifact Re
 infra/modules/         storage, job, scheduler, secret, monitoring
 infra/envs/dev/        root module del entorno (main, iam, variables, outputs, providers, backend, dev.tfvars)
 .github/workflows/     ci.yml (PR), deploy.yml (main), destroy.yml (manual), run-job.yml (manual)
-docs/                  proveedor, arquitectura, IAM, FinOps, seguridad, runbook, guion de la presentación
+docs/                  proveedor, arquitectura, diagramas UML (docs/uml), IAM, FinOps, seguridad, runbook, guion
 ```
 
 ![Arquitectura](docs/arquitectura.png)
+
+Diagramas UML de despliegue, componentes, secuencia, actividad y casos de uso: [docs/diagramas-uml.md](docs/diagramas-uml.md).
 
 ## Desplegar
 
