@@ -12,6 +12,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 | 17/11 | Diagramas UML. Cuenta de Google Cloud (prueba gratuita), Terraform en Cloud Shell, proyecto `zenithzest-ucu-1711`, bootstrap (33 recursos), variables y environment en GitHub. Primer `deploy` en verde. Primer `run-job`: el análisis funcionó, pero falló el aviso a Discord; corregido. |
 | 17/11 | Deploy automático (push a `main`) con el arreglo, aprobado en el environment. `run-job` #2 en verde: reporte en el bucket y resumen recibido en Discord. |
 | 17/11 | `run-job` con `opiniones_crisis.csv`: **90 % negativas** → la alerta "opiniones negativas > 40 %" se disparó a las 14:03 UTC y llegó el mail a los dos integrantes. |
+| 17/11 | `destroy.yml` en verde: se destruyó todo el entorno dev y el paso de evidencia confirmó que el state quedó vacío. Queda solo el bootstrap (costo casi nulo). |
 
 ## Problemas, causas y soluciones
 
