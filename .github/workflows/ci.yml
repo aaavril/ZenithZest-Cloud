@@ -44,6 +44,8 @@ jobs:
           done
       - uses: terraform-linters/setup-tflint@v6
       - name: tflint
+        env:
+          GITHUB_TOKEN: ${{ github.token }}   # el plugin se baja de GitHub; sin token, el límite anónimo por IP puede dar 403
         run: |
           tflint --init --config "$GITHUB_WORKSPACE/.tflint.hcl"
           tflint --recursive --config "$GITHUB_WORKSPACE/.tflint.hcl" --chdir infra
