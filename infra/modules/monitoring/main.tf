@@ -16,18 +16,20 @@ resource "google_monitoring_metric_descriptor" "sentimiento" {
   }
 }
 
+# Los mails son sensibles: el plan (que se publica en el PR) muestra "(sensitive value)" en vez de la dirección.
+# Por eso count y no for_each: for_each no acepta valores sensibles, y la cantidad de mails no es secreta.
 resource "google_monitoring_notification_channel" "email" {
-  for_each     = toset(var.alert_emails)
+  count        = nonsensitive(length(var.alert_emails))
   project      = var.project_id
-  display_name = "ZenithZest alertas - ${each.value}"
+  display_name = "ZenithZest alertas - integrante ${count.index + 1}"
   type         = "email"
   labels = {
-    email_address = each.value
+    email_address = var.alert_emails[count.index]
   }
 }
 
 locals {
-  canales        = [for c in google_monitoring_notification_channel.email : c.id]
+  canales        = google_monitoring_notification_channel.email[*].id
   filtro_metrica = "metric.type=\"${google_monitoring_metric_descriptor.sentimiento.type}\" AND resource.type=\"global\""
   filtro_fallos  = "metric.type=\"run.googleapis.com/job/completed_execution_count\" AND resource.type=\"cloud_run_job\" AND resource.label.job_name=\"${var.job_name}\" AND metric.label.result=\"failed\""
 }

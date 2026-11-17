@@ -65,6 +65,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 | Problema | Solución |
 |---|---|
 | El primer PR falló en Checkov con una regla nueva (CKV_GCP_125) que localmente pasaba | La acción de Checkov baja la última versión (3.4.5) y localmente se usaba la 3.2; la regla nueva pide restringir el OIDC por `assertion.sub`, y nosotros restringimos por `assertion.repository` | Justificado en el código (es la forma que recomienda Google) y documentado en seguridad.md. Aprendizaje: fijar la versión del escáner en CI para que una actualización no rompa el pipeline sin aviso. |
+| El plan comentado en el PR mostraba los mails del equipo (repo público) | Los canales de alerta llevan el mail como etiqueta y el plan imprime todos los valores | `alert_emails` pasó a `sensitive = true` (el plan muestra `(sensitive value)`) y se borraron los comentarios viejos | El plan es público si el repo lo es: los datos personales también van como sensibles, no solo las contraseñas. |
 | En un PR, `tflint --init` falló con *403 API rate limit exceeded* | El plugin de Google se descarga de GitHub sin token, y el límite anónimo es por IP (los runners son compartidos) | Se le pasa `GITHUB_TOKEN` al paso de tflint | Las herramientas que bajan cosas de GitHub en CI necesitan el token del workflow. |
 | tflint marcó módulos sin `required_version` ni `required_providers` | Un `versions.tf` en cada módulo |
 | Checkov: 11 hallazgos | Revisados uno por uno y justificados en el código; Checkov pasó a bloquear el merge (ver [seguridad.md](seguridad.md)) |
