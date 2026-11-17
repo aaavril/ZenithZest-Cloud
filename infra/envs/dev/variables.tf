@@ -85,6 +85,7 @@ variable "scheduler_paused" {
 variable "alert_emails" {
   type        = list(string)
   description = "Correos del equipo para las alertas"
+  sensitive   = true # no se imprimen en el plan publicado en el PR
   validation {
     condition     = length(var.alert_emails) > 0 && alltrue([for e in var.alert_emails : can(regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", e))])
     error_message = "Al menos un correo, todos con formato válido."

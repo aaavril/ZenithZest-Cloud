@@ -1,7 +1,7 @@
 # Diagramas UML
 
 Cinco diagramas, cada uno responde una pregunta distinta. Están escritos como código en PlantUML
-(`docs/uml/*.puml`, *diagrams-as-code*) y exportados a PNG y SVG.
+(`docs/uml/*.puml`, *diagrams-as-code*) y exportados a PNG.
 
 | Diagrama | Responde | Archivo |
 |---|---|---|
@@ -72,7 +72,6 @@ Cinco diagramas, cada uno responde una pregunta distinta. Están escritos como c
 
 ```bash
 docker run --rm -v "$PWD/docs/uml:/data" -w /data plantuml/plantuml:1.2024.7 -tpng *.puml
-docker run --rm -v "$PWD/docs/uml:/data" -w /data plantuml/plantuml:1.2024.7 -tsvg *.puml
 ```
 
 (También se pueden ver y editar en https://www.plantuml.com/plantuml o con la extensión PlantUML de VS Code.)
