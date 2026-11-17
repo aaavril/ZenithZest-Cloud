@@ -4,6 +4,9 @@ name: deploy
 on:
   push:
     branches: [main]
+    paths-ignore:          # cambios solo de documentación no despliegan
+      - "docs/**"
+      - "**.md"
   workflow_dispatch:
 
 permissions:
