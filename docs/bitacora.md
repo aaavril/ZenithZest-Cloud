@@ -30,6 +30,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 |---|---|---|---|
 | Las primeras corridas de `deploy` (16 y 17/11) salieron en rojo | Al subir a `main` se dispara el deploy, pero todavía no existían el proyecto ni las variables | Se esperaba; quedó verde una vez hecho el bootstrap | El orden importa: **primero el bootstrap**, después el pipeline (el huevo y la gallina del state y del OIDC). |
 | Riesgo de errores "API not enabled" en el bootstrap | En un proyecto nuevo, Terraform puede usar una API antes de que termine de habilitarse | Se habilitaron antes con `gcloud services enable` las APIs base (resourcemanager, serviceusage, iam, storage, billingbudgets) | Prevenir carreras de dependencias en el primer apply. |
+| El `destroy` quedó en cola (`pending`) y no arrancaba | Un `deploy` disparado por un push de documentación seguía esperando aprobación, y los dos comparten `concurrency: deploy-dev` (a propósito: nunca dos procesos sobre el mismo state) | Se rechazó (*Reject*) ese deploy y el destroy siguió. Se agregó `paths-ignore` para que los cambios de docs no disparen deploys | La concurrencia protege el state, pero una aprobación pendiente bloquea todo lo que viene detrás: no dejar corridas esperando. |
 | Primer intento de cargar el webhook: "Secret Payload cannot be empty" | Se apretó Enter sin pegar la URL | Se repitió | El secreto se carga con `read -s` para que no quede en pantalla ni en el historial. |
 
 ### Primera ejecución del job (`run-job` #1)
@@ -63,6 +64,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 
 ## Pendientes conocidos
 
-- Avisos de GitHub "Node.js 20 is deprecated" en `checkout@v4`, `auth@v2`, `setup-gcloud@v2` y
-  `setup-terraform@v3`: hoy funcionan; actualizar a versiones nuevas antes de que GitHub las retire.
+- ~~Avisos de GitHub "Node.js 20 is deprecated"~~: resuelto en el PR `actualizar-acciones-node24` (checkout v7,
+  setup-python v7, github-script v9, auth v3, setup-gcloud v3, setup-terraform v4, setup-tflint v6, gitleaks v3,
+  infracost v5; todas verificadas con runtime Node 24).
 - `ubuntu-latest` pasa a Ubuntu 26: sin impacto esperado, pero fijar la versión daría builds más predecibles.
