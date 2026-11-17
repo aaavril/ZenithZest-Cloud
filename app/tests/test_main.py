@@ -32,6 +32,30 @@ def test_resumir_vacio():
     assert main.resumir([])["pct"]["positivo"] == 0.0
 
 
+def test_webhook_que_falla_no_hace_fallar_el_job(monkeypatch, capsys):
+    import types
+    import urllib.request
+
+    falso = types.ModuleType("google.cloud.secretmanager")
+
+    class Cliente:
+        def access_secret_version(self, name):
+            return types.SimpleNamespace(payload=types.SimpleNamespace(data=b"https://ejemplo.invalid/hook"))
+
+    falso.SecretManagerServiceClient = Cliente
+    monkeypatch.setitem(sys.modules, "google.cloud.secretmanager", falso)
+    import google.cloud
+    monkeypatch.setattr(google.cloud, "secretmanager", falso, raising=False)
+
+    def urlopen_403(pedido, timeout):
+        assert pedido.get_header("User-agent", "").startswith("ZenithZest")
+        raise urllib.error.HTTPError(pedido.full_url, 403, "Forbidden", None, None)
+
+    monkeypatch.setattr(urllib.request, "urlopen", urlopen_403)
+    main.notificar("proyecto", "secreto", main.resumir([{"sentimiento": "positivo"}]), "gs://x")
+    assert "No se pudo enviar el resumen" in capsys.readouterr().out
+
+
 def test_reportes():
     resultados = [{"id": "1", "fecha": "2026-11-01", "canal": "web", "opinion": "Me <encanta>",
                    "score": 0.9, "magnitud": 0.9, "sentimiento": "positivo"}]

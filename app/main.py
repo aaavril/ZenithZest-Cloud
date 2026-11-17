@@ -109,9 +109,12 @@ def notificar(proyecto, secreto, resumen, ruta):
     texto = (f"ZenithZest: {resumen['total']} opiniones -> {p['positivo']}% positivas, "
              f"{p['negativo']}% negativas, {p['neutro']}% neutras. Reporte: {ruta}")
     cuerpo = json.dumps({"content": texto, "text": texto}).encode()
-    pedido = urllib.request.Request(url, data=cuerpo, headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(pedido, timeout=10) as respuesta:
-        log("INFO", "Resumen enviado al webhook", status=respuesta.status)
+    cabeceras = {"Content-Type": "application/json", "User-Agent": "ZenithZest-job/1.0"}  # sin UA, Discord da 403
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, data=cuerpo, headers=cabeceras), timeout=10) as r:
+            log("INFO", "Resumen enviado al webhook", status=r.status)
+    except Exception as error:  # el aviso no debe hacer fallar un análisis que ya terminó bien
+        log("WARNING", "No se pudo enviar el resumen al webhook", error=str(error))
 
 
 def main():
