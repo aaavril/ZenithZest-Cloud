@@ -38,16 +38,19 @@ tiene su `versions.tf`. Segunda corrida: sin hallazgos.
 
 ## Trivy (imagen)
 
-Completar con la salida del primer PR (`ci.yml` → job `imagen`):
+Primer PR (17/11, rama `actualizar-acciones-node24`): el paso bloqueante (CRITICAL con parche disponible) **pasó:
+0 vulnerabilidades críticas corregibles** en la imagen `python:3.12-slim` + dependencias. El detalle de las HIGH
+sale en el log del job `imagen` (paso "Trivy - reporte de vulnerabilidades"), que no bloquea:
 
-| Severidad | Cantidad | Paquete | Acción |
-|---|---|---|---|
-| CRITICAL | | | |
-| HIGH | | | |
+| Severidad | Cantidad | Acción |
+|---|---|---|
+| CRITICAL (con parche) | 0 | — |
+| HIGH | [completar con el log del job `imagen`] | Actualizar la base a la última versión de parche o la librería afectada |
 
-Correcciones típicas: actualizar la base (`python:3.12-slim` a la última versión de parche), actualizar la
-librería afectada en `requirements.txt` o pasar a `distroless`.
+Correcciones típicas si aparecen: actualizar la base (`python:3.12-slim` a la última versión de parche), actualizar
+la librería afectada en `requirements.txt` o pasar a `distroless`.
 
 ## gitleaks
 
-Completar con la salida del primer PR: esperado **0 hallazgos**. Captura para el informe.
+Primer PR (17/11): **0 hallazgos**: no hay secretos en el historial de Git. El webhook vive solo en Secret Manager y
+los mails del equipo solo en las variables de GitHub.
