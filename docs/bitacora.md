@@ -11,6 +11,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 | 16/11 | Repo en GitHub. Validaciones en todas las variables, `providers.tf`, Infracost, comparación con VADER, diagrama de arquitectura. |
 | 17/11 | Diagramas UML. Cuenta de Google Cloud (prueba gratuita), Terraform en Cloud Shell, proyecto `zenithzest-ucu-1711`, bootstrap (33 recursos), variables y environment en GitHub. Primer `deploy` en verde. Primer `run-job`: el análisis funcionó, pero falló el aviso a Discord; corregido. |
 | 17/11 | Deploy automático (push a `main`) con el arreglo, aprobado en el environment. `run-job` #2 en verde: reporte en el bucket y resumen recibido en Discord. |
+| 17/11 | `run-job` con `opiniones_crisis.csv`: **90 % negativas** → la alerta "opiniones negativas > 40 %" se disparó a las 14:03 UTC y llegó el mail a los dos integrantes. |
 
 ## Problemas, causas y soluciones
 
@@ -44,6 +45,7 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
 - El generador de datos apuntaba a ~55 / 25 / 20. La diferencia viene de frases que una persona leería como
   neutras y la API puntuó **levemente positivas**: "Probé … ayer en la oficina" (0,30), "está en promoción esta
   semana" (0,50), "sacó un sabor nuevo" (0,70).
+- Corrida de crisis (`opiniones_crisis.csv`, 40 opiniones armadas con ~80 % negativas): la API dio **90 % negativas** y disparó la alerta.
 - Aprendizaje: el **umbral de clasificación** (±0,25) es una decisión de negocio, no un detalle técnico. Con
   ±0,35 varias de esas pasarían a neutras. Es el motivo para comparar con un segundo modelo (VADER,
   `scripts/comparar_modelos.py`).
