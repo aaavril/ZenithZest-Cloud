@@ -40,8 +40,8 @@ Diagramas UML de despliegue, componentes, secuencia, actividad y casos de uso: [
 ## Desplegar
 
 Requisitos: cuenta de Google Cloud con facturación (créditos) y este repo en GitHub. Los pasos manuales se hacen en
-**Cloud Shell** (la terminal del navegador de la consola de Google Cloud, botón `>_`), que ya trae `gcloud`,
-Terraform y git: no hay que instalar nada. El resto lo corre GitHub Actions.
+**Cloud Shell** (la terminal del navegador de la consola de Google Cloud, botón `>_`), que ya trae `gcloud` y git.
+El resto lo corre GitHub Actions.
 
 1. **Proyecto** (en Cloud Shell, ya autenticado)
    ```bash
@@ -49,6 +49,11 @@ Terraform y git: no hay que instalar nada. El resto lo corre GitHub Actions.
    gcloud projects create zenithzest-ucu-XXXX
    gcloud billing projects link zenithzest-ucu-XXXX --billing-account=XXXXXX-XXXXXX-XXXXXX
    gcloud config set project zenithzest-ucu-XXXX
+   gcloud services enable cloudresourcemanager.googleapis.com serviceusage.googleapis.com iam.googleapis.com storage.googleapis.com billingbudgets.googleapis.com
+   ```
+   Cloud Shell **no trae Terraform**: se instala la misma versión que usa el pipeline, verificando el archivo:
+   ```bash
+   mkdir -p ~/.local/bin && cd /tmp && V=1.9.8      && curl -sSLO https://releases.hashicorp.com/terraform/${V}/terraform_${V}_linux_amd64.zip      && curl -sSLO https://releases.hashicorp.com/terraform/${V}/terraform_${V}_SHA256SUMS      && grep linux_amd64 terraform_${V}_SHA256SUMS | sha256sum -c -      && unzip -o -q terraform_${V}_linux_amd64.zip -d ~/.local/bin && export PATH="$HOME/.local/bin:$PATH" && cd -
    ```
    (Desde la compu, en cambio: instalar `gcloud` y Terraform y correr `gcloud auth application-default login`.)
 2. **Bootstrap (una vez)**: copiar `infra/bootstrap/bootstrap.tfvars.example` a `bootstrap.tfvars`, completarlo y
@@ -77,10 +82,19 @@ Actions → `destroy` → escribir `destruir`. El último paso muestra que el st
 El bootstrap (bucket del state, registro, OIDC, presupuesto) se borra al final del curso con
 `terraform destroy -var-file=bootstrap.tfvars` en `infra/bootstrap` (vaciar antes el bucket del state).
 
+## Resultados (17/11/2026)
+
+- **Primera corrida real:** 200 opiniones → 69 % positivas, 20 % negativas, 11 % neutras; reporte en el bucket y
+  resumen recibido en Discord.
+- **Crisis simulada** (`opiniones_crisis.csv`): 90 % negativas → la alerta "> 40 %" se disparó y llegó el mail.
+- **Destroy:** todo el entorno borrado y el state verificado vacío.
+- Problemas, causas y aprendizajes del proceso: [docs/bitacora.md](docs/bitacora.md).
+
 ## Extras
 
 - **Comparación con un modelo local:** `scripts/comparar_modelos.py` compara un reporte del job (API) con VADER
-  adaptado al español y genera la coincidencia y la matriz de confusión:
+  adaptado al español: **91 % de coincidencia** sobre la corrida real
+  ([docs/comparacion-modelos.md](docs/comparacion-modelos.md)). Para correrlo:
   ```bash
   pip install vaderSentiment==3.3.2
   python scripts/comparar_modelos.py reporte.csv --md docs/comparacion-modelos.md
