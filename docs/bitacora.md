@@ -51,6 +51,14 @@ Registro del proceso real de construir y desplegar ZenithZest. Sirve para el inf
   ±0,35 varias de esas pasarían a neutras. Es el motivo para comparar con un segundo modelo (VADER,
   `scripts/comparar_modelos.py`).
 
+### Comparación con VADER (extra)
+
+- Primera comparación: **85 %** de coincidencia. VADER marcaba como negativa "…me cambiaron un pack sin problema":
+  en inglés ***sin*** es "pecado" (−2,6). Un **falso amigo** entre idiomas.
+- Corregido en el léxico → **91 %**. Las 18 diferencias restantes son frases neutras que la API puntuó levemente
+  positivas. Detalle en [comparacion-modelos.md](comparacion-modelos.md).
+- Aprendizaje: un modelo pensado para otro idioma puede fallar en silencio; hay que mirar los ejemplos, no solo el %.
+
 ### Durante el desarrollo (antes de la nube)
 
 | Problema | Solución |

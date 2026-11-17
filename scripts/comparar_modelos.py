@@ -30,6 +30,8 @@ LEXICO_ES = {
     "decepcionante": -2.5, "decepción": -2.5, "carísimo": -2.0, "caro": -1.5, "dolor": -2.0,
     "abollada": -1.5, "reclamo": -1.5, "jarabe": -1.0, "artificial": -1.0, "nunca": -0.5, "peor": -2.5,
     "odio": -3.0, "feo": -2.0, "fea": -2.0, "tarde": -1.0, "roto": -2.0, "rota": -2.0, "estafa": -3.0,
+    # falsos amigos: palabras que VADER puntúa como inglés ("sin" = pecado, −2.6) pero en español son neutras
+    "sin": 0.0,
 }
 NEGACIONES_ES = ["no", "ni", "jamás", "tampoco", "sin"]
 
@@ -77,7 +79,13 @@ def informe(filas):
     for real in clases:
         fila = [sum(1 for f in filas if f["sentimiento"] == real and f["vader"] == pred) for pred in clases]
         lineas.append(f"| {real} | " + " | ".join(map(str, fila)) + " |")
-    distintas = [f for f in filas if f["vader"] != f["sentimiento"]][:5]
+    vistas, distintas = set(), []
+    for f in filas:  # un ejemplo por frase (sin el nombre del producto)
+        clave = f["opinion"].split("ZenithZest")[0] + f["vader"]
+        if f["vader"] != f["sentimiento"] and clave not in vistas:
+            vistas.add(clave)
+            distintas.append(f)
+    distintas = distintas[:6]
     if distintas:
         lineas += ["", "Ejemplos donde no coinciden:", ""]
         lineas += [f"- \"{f['opinion']}\" → API: {f['sentimiento']} ({float(f['score']):.2f}) · "
