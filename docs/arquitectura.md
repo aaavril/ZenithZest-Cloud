@@ -4,33 +4,9 @@
 
 Diagramas UML (despliegue, componentes, secuencia, actividad y casos de uso) en [diagramas-uml.md](diagramas-uml.md).
 
-Imagen generada desde `arquitectura.mmd` (diagrams-as-code, Mermaid). También en `arquitectura.svg`. Para
+Imagen generada desde `arquitectura.mmd` (diagrams-as-code, Mermaid). Para
 regenerarla: `docker run --rm -u root -v "$PWD/docs:/data" minlag/mermaid-cli:11.4.2 -i /data/arquitectura.mmd -o /data/arquitectura.png -b white -w 1800`.
 
-```mermaid
-flowchart LR
-  subgraph GitHub
-    PR[Pull Request] --> CI[ci.yml<br/>tests · fmt · validate · tflint<br/>Checkov · gitleaks · Trivy · plan]
-    MAIN[merge a main] --> CD[deploy.yml<br/>build + push imagen<br/>apply con aprobación]
-  end
-  CD -- OIDC, sin claves --> WIF[Workload Identity<br/>Federation]
-  WIF --> SAP[SA pipeline]
-
-  subgraph GCP["Google Cloud · us-central1"]
-    AR[(Artifact Registry)]
-    SCH[Cloud Scheduler<br/>09:00 diario] -- run.invoker<br/>SA cron --> JOB[Cloud Run Job<br/>zenithzest-job<br/>SA job]
-    IN[(Bucket entrada<br/>opiniones.csv)] -- objectViewer --> JOB
-    JOB -- objectCreator --> OUT[(Bucket reportes<br/>CSV + HTML, TTL)]
-    JOB -- analyzeSentiment --> NL[Natural Language API]
-    JOB -- metricWriter --> MON[Cloud Monitoring<br/>métrica sentiment_pct<br/>dashboard + 2 alertas]
-    SM[Secret Manager<br/>webhook] -- secretAccessor --> JOB
-    JOB -. logs stdout, 7 días .-> LOG[Cloud Logging]
-  end
-  SAP --> AR
-  SAP -->|terraform apply| GCP
-  JOB -- resumen --> HOOK[Discord / Slack]
-  MON -- email --> EQ[Equipo]
-```
 
 ## Flujo de datos
 

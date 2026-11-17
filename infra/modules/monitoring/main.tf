@@ -62,7 +62,7 @@ resource "google_monitoring_alert_policy" "negativas" {
 
   documentation {
     mime_type = "text/markdown"
-    content   = "Más del ${var.negative_threshold_pct}% de las opiniones de hoy son negativas. Revisar el reporte HTML del día en el bucket de reportes (ver docs/runbook.md)."
+    content   = "Más del ${var.negative_threshold_pct}% de las opiniones de hoy son negativas. Revisar el reporte HTML del día en el bucket de reportes."
   }
 }
 
@@ -94,7 +94,7 @@ resource "google_monitoring_alert_policy" "job_fallido" {
 
   documentation {
     mime_type = "text/markdown"
-    content   = "El job ${var.job_name} terminó con error. Ver los logs: severity>=ERROR en Cloud Logging (docs/runbook.md)."
+    content   = "El job ${var.job_name} terminó con error. Ver los logs con severity>=ERROR en Cloud Logging."
   }
 }
 

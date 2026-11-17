@@ -1,14 +1,14 @@
 # Presentación
 
-18 diapositivas para la defensa (15 minutos, con demo en vivo), con notas del orador que indican quién habla
-en cada parte.
+**[ZenithZest.html](ZenithZest.html)**: las 18 diapositivas de la defensa en un solo archivo. Se abre con doble clic,
+funciona sin internet y trae las imágenes adentro.
 
-- **Versión en línea:** https://claude.ai/artifact/P37CUKdQeAmyYHNzcpvHqK (se presenta desde ahí y se exporta a
-  PowerPoint o PDF desde su menú de compartir).
-- **Código de las slides:** [`fuente/`](fuente/): el índice (`deck.json`), los estilos compartidos (`deck.css`) y una
-  página HTML por diapositiva, con sus notas del orador. Las imágenes (diagramas y capturas de la prueba real) están
-  guardadas en la versión en línea; los diagramas originales están en `../arquitectura.png` y `../uml/`.
-- **Guion y preguntas probables:** [`../presentacion.md`](../presentacion.md).
+| Tecla | Qué hace |
+|---|---|
+| → / ← (o clic) | Slide siguiente / anterior |
+| N | Muestra u oculta las notas del orador |
+| F | Pantalla completa |
+| Ctrl + P | Exportar a PDF (una slide por página) |
 
 ## Recorrido
 

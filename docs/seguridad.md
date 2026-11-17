@@ -39,13 +39,8 @@ tiene su `versions.tf`. Segunda corrida: sin hallazgos.
 ## Trivy (imagen)
 
 Primer PR (17/11, rama `actualizar-acciones-node24`): el paso bloqueante (CRITICAL con parche disponible) **pasó:
-0 vulnerabilidades críticas corregibles** en la imagen `python:3.12-slim` + dependencias. El detalle de las HIGH
-sale en el log del job `imagen` (paso "Trivy - reporte de vulnerabilidades"), que no bloquea:
-
-| Severidad | Cantidad | Acción |
-|---|---|---|
-| CRITICAL (con parche) | 0 | — |
-| HIGH | [completar con el log del job `imagen`] | Actualizar la base a la última versión de parche o la librería afectada |
+0 vulnerabilidades críticas corregibles** en la imagen `python:3.12-slim` + dependencias. Las de severidad HIGH se
+reportan en el log del job `imagen` (paso "Trivy - reporte de vulnerabilidades"), sin bloquear.
 
 Correcciones típicas si aparecen: actualizar la base (`python:3.12-slim` a la última versión de parche), actualizar
 la librería afectada en `requirements.txt` o pasar a `distroless`.

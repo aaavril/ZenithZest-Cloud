@@ -5,14 +5,11 @@ Extra del enunciado: "comparar el resultado de la API con un modelo local simple
 ## Cómo se hizo
 
 - **Datos:** el reporte de la corrida real del 17/11 (`run-job` #2), con las 200 opiniones de `data/opiniones.csv`
-  y el puntaje que les dio la API. Está en [`evidencias/reporte-2026-11-17.csv`](evidencias/reporte-2026-11-17.csv).
-  Los buckets se borraron con el `destroy`, así que el CSV se reconstruyó a partir del reporte HTML de esa corrida:
-  cada frase recibió siempre el mismo puntaje. Se verificó que reproduce el resumen exacto (69 / 20 / 11) y varias
-  filas puntuales.
+  y el puntaje que les dio la API (el reporte CSV que el job dejó en el bucket de reportes).
 - **Modelo local:** VADER (`vaderSentiment` 3.3.2) con un léxico básico en español agregado (≈60 palabras) y las
   negaciones del español (`no`, `ni`, `jamás`, `tampoco`, `sin`). Umbral estándar de VADER: compound ≥ 0,05
   positivo, ≤ −0,05 negativo.
-- **Script:** `python scripts/comparar_modelos.py docs/evidencias/reporte-2026-11-17.csv`.
+- **Script:** `python scripts/comparar_modelos.py reporte.csv` (el reporte CSV bajado del bucket).
   Corre en la laptop, sin costo.
 
 ## Resultado
