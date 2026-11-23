@@ -1,6 +1,4 @@
-# Bootstrap: se aplica UNA vez, a mano, con tu usuario (gcloud auth application-default login).
-# Crea lo que el pipeline necesita para existir: APIs, bucket del state, registro de imágenes,
-# federación OIDC con GitHub, cuenta de servicio del pipeline y alerta de presupuesto.
+# Bootstrap (una vez, a mano): APIs, bucket del state, registro, OIDC, cuenta del pipeline y presupuesto.
 
 locals {
   labels = {
@@ -16,7 +14,7 @@ locals {
     "iamcredentials.googleapis.com", "sts.googleapis.com", "cloudresourcemanager.googleapis.com",
     "billingbudgets.googleapis.com", "serviceusage.googleapis.com",
   ]
-  # Roles del pipeline sobre el proyecto: lo justo para aplicar infra/envs/dev (ver docs/iam.md)
+  # Roles del pipeline sobre el proyecto: lo justo para aplicar infra/envs/dev (ver el informe, Anexo B)
   roles_pipeline = [
     "roles/run.admin",
     "roles/storage.admin",

@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ZenithZest · Informe final</title>
+<style>
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+:root { --azul:#1A73E8; --rojo:#D93025; --amarillo:#F9AB00; --verde:#1E8E3E; --tinta:#202124; --texto:#3C4043; --gris:#F1F3F4; --linea:#DADCE0; }
+body { font-family: Roboto, "Helvetica Neue", Arial, sans-serif; color: var(--texto); font-size: 10.5pt; line-height: 1.5; margin: 0; }
+h1, h2, h3, h4 { color: var(--tinta); font-weight: 500; line-height: 1.2; }
+h1 { font-size: 22pt; margin: 0 0 6mm; }
+h2 { font-size: 16pt; margin: 9mm 0 3mm; padding-bottom: 2mm; border-bottom: 2px solid var(--linea); }
+h3 { font-size: 12.5pt; margin: 6mm 0 2mm; }
+h4 { font-size: 11pt; margin: 4mm 0 1mm; }
+h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+p { margin: 0 0 2.5mm; }
+ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+li { margin-bottom: 1mm; }
+code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 9pt; background: var(--gris); padding: 0 1mm; border-radius: 2px; }
+pre { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 8.5pt; background: var(--gris); padding: 3mm; border-radius: 3px; white-space: pre-wrap; margin: 0 0 3mm; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 4mm; font-size: 9pt; page-break-inside: auto; }
+tr { page-break-inside: avoid; }
+th { background: var(--gris); text-align: left; font-weight: 600; color: var(--tinta); }
+th, td { padding: 1.5mm 2mm; border-bottom: 1px solid var(--linea); vertical-align: top; }
+figure { margin: 3mm 0 5mm; text-align: center; page-break-inside: avoid; }
+figure img { max-width: 100%; border: 1px solid var(--linea); border-radius: 3px; }
+figcaption { font-size: 9pt; color: #5F6368; margin-top: 1.5mm; }
+.salto { page-break-before: always; }
+.parte { page-break-before: always; padding-top: 70mm; }
+.parte .kicker { font-size: 11pt; letter-spacing: 2px; text-transform: uppercase; color: var(--azul); font-weight: 600; }
+.parte h1 { font-size: 30pt; margin-top: 3mm; }
+.parte p { font-size: 12pt; max-width: 140mm; }
+.barra { display: flex; height: 3mm; margin-bottom: 10mm; }
+.barra div { flex: 1; }
+.caja { background: #F8FAFE; border-left: 3px solid var(--azul); padding: 3mm 4mm; margin: 0 0 4mm; }
+.caja.ok { border-color: var(--verde); background: #F3FAF5; }
+.caja.alerta { border-color: var(--amarillo); background: #FFFBEF; }
+.cifras { display: flex; gap: 6mm; margin: 2mm 0 5mm; }
+.cifras div { flex: 1; border: 1px solid var(--linea); border-radius: 3px; padding: 3mm; }
+.cifras b { display: block; font-size: 20pt; color: var(--tinta); font-weight: 600; }
+.portada { height: 255mm; display: flex; flex-direction: column; justify-content: space-between; }
+.portada h1 { font-size: 44pt; margin: 4mm 0; }
+.portada .sub { font-size: 15pt; color: #5F6368; max-width: 150mm; }
+.portada .datos p { font-size: 11pt; margin: 0 0 1mm; }
+.indice ol { font-size: 11pt; line-height: 1.8; }
+.indice ol ol { font-size: 10pt; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<section class="portada">
+  <div>
+    <div class="barra"><div style="background:#1A73E8"></div><div style="background:#D93025"></div><div style="background:#F9AB00"></div><div style="background:#1E8E3E"></div></div>
+    <p style="letter-spacing:2px;text-transform:uppercase;color:#1A73E8;font-weight:600;">Cloud Computing · UCU · Proyecto integrador 7</p>
+    <h1>ZenithZest</h1>
+    <p class="sub">Análisis de sentimiento de opiniones de clientes en Google Cloud, con toda la infraestructura en Terraform y despliegue por CI/CD.</p>
+  </div>
+  <div class="datos">
+    <p><b>Equipo:</b> Avril Viega · Sebastián Cúneo</p>
+    <p><b>Repositorio:</b> github.com/aaavril/ZenithZest-Cloud</p>
+    <p><b>Fecha:</b> noviembre de 2026</p>
+  </div>
+</section>
+
+<section class="salto indice">
+<h1>Contenido</h1>
+<ol>
+  <li>Resumen</li>
+  <li>El problema y la solución</li>
+  <li><b>Parte A · Infraestructura y CI/CD</b>
+    <ol>
+      <li>Elección de proveedor</li>
+      <li>Arquitectura en Google Cloud</li>
+      <li>Infraestructura como código (Terraform)</li>
+      <li>Pipeline CI/CD</li>
+      <li>Seguridad e IAM</li>
+      <li>Observabilidad</li>
+      <li>FinOps</li>
+    </ol>
+  </li>
+  <li><b>Parte B · Lógica y desarrollo</b>
+    <ol>
+      <li>La aplicación</li>
+      <li>Una ejecución, paso a paso</li>
+      <li>Resultados y evidencias</li>
+      <li>Extra: comparación con un modelo local (VADER)</li>
+      <li>Cómo desarrollamos con Claude</li>
+      <li>Bitácora: problemas y soluciones</li>
+    </ol>
+  </li>
+  <li>Conclusiones</li>
+  <li>Anexos: diagramas UML, matriz IAM completa y despliegue paso a paso</li>
+</ol>
+</section>
+
+<section class="salto">
+<h1>1. Resumen</h1>
+<p>ZenithZest es una empresa de jugos energéticos que quiere saber, todos los días, si lo que dicen sus clientes es positivo o negativo, sin que nadie tenga que leer opinión por opinión.</p>
+<p>Construimos en <b>Google Cloud</b> un <b>job de contenedor</b> que corre una vez por día (y a demanda). El job lee un CSV de opiniones de un bucket privado, le pide el sentimiento de cada una a la <b>Natural Language API</b>, escribe un reporte CSV y HTML, publica el porcentaje positivo, negativo y neutro como <b>métrica personalizada</b> y manda un resumen a Discord. Si las opiniones negativas pasan del 40 %, <b>Cloud Monitoring</b> avisa por mail al equipo.</p>
+<p>Toda la infraestructura está escrita en <b>Terraform</b> y se despliega con <b>GitHub Actions</b>, que entra a Google Cloud por <b>OIDC</b>, sin claves guardadas. Cada cambio pasa por pruebas, escaneos de seguridad y un plan revisado, y requiere dos aprobaciones humanas.</p>
+<div class="cifras">
+  <div><b>69 / 20 / 11 %</b>positivas / negativas / neutras en la corrida real (200 opiniones)</div>
+  <div><b>90 %</b>de negativas en la crisis simulada: la alerta llegó por mail</div>
+  <div><b>≈ USD 0–1</b>por mes el entorno de pruebas; todo escala a cero</div>
+</div>
+<p>El informe tiene dos partes, separadas a propósito. La <b>Parte A</b> cubre la plataforma: proveedor, arquitectura, Terraform, CI/CD, seguridad, observabilidad y costos. La <b>Parte B</b> cubre la lógica de la aplicación, los resultados y cómo la desarrollamos, incluida la forma en que trabajamos con Claude como asistente de código.</p>
+
+<h1 style="margin-top:10mm">2. El problema y la solución</h1>
+<table>
+<tr><th style="width:18%">Paso</th><th>Qué hace</th><th style="width:30%">Servicio</th></tr>
+<tr><td>1. Leer</td><td>Hasta 200 opiniones de <code>opiniones.csv</code>, en un bucket privado</td><td>Cloud Storage</td></tr>
+<tr><td>2. Analizar</td><td>Puntúa cada opinión de −1 a 1 y la clasifica</td><td>Natural Language API</td></tr>
+<tr><td>3. Reportar</td><td>Tabla CSV y página HTML con el resultado del día</td><td>Cloud Storage</td></tr>
+<tr><td>4. Medir</td><td>% positivo, negativo y neutro en un dashboard</td><td>Cloud Monitoring</td></tr>
+<tr><td>5. Avisar</td><td>Resumen a Discord y alerta por mail si hay crisis</td><td>Secret Manager · Monitoring</td></tr>
+</table>
+<p>La aplicación es mínima a propósito: tiene menos de 150 líneas, que es el límite de la consigna. Lo que se evalúa es la plataforma que la hace funcionar.</p>
+</section>
+
+<section class="parte">
+  <div class="barra"><div style="background:#1A73E8"></div><div style="background:#D93025"></div><div style="background:#F9AB00"></div><div style="background:#1E8E3E"></div></div>
+  <p class="kicker">Parte A</p>
+  <h1>Infraestructura y CI/CD</h1>
+  <p>Dónde corre todo, cómo se crea con Terraform, cómo llega cada cambio a la nube y cómo se controlan la seguridad, la observabilidad y el costo.</p>
+</section>
+
+<section class="salto">
+<h2>3.1 Elección de proveedor: Google Cloud</h2>
+<p><b>Decisión:</b> Google Cloud, con una sola región: <code>us-central1</code>.</p>
+<table>
+<tr><th style="width:20%">Criterio</th><th>Google Cloud (elegido)</th><th>AWS</th><th>Azure</th></tr>
+<tr><td>Job de contenedor programado</td><td><b>Cloud Run Jobs + Cloud Scheduler</b>: dos recursos</td><td>ECS Fargate, task definition, rol de ejecución y EventBridge Scheduler</td><td>Container Apps Jobs, que requiere environment y Log Analytics</td></tr>
+<tr><td>OIDC desde GitHub (sin claves)</td><td>Workload Identity Federation, creada con Terraform</td><td>En AWS Academy no se pueden crear roles ni proveedores OIDC</td><td>Federación en Entra ID; Azure for Students puede limitarla</td></tr>
+<tr><td>IA de lenguaje en español</td><td>Natural Language API</td><td>Comprehend</td><td>AI Language</td></tr>
+<tr><td>Métrica, dashboard y alertas como código</td><td>Descriptor, dashboard JSON y alert policies en Terraform</td><td>CloudWatch (similar)</td><td>Application Insights (similar)</td></tr>
+<tr><td>Costo con tráfico de prueba</td><td>Pago por uso; el job no cobra cuando no corre</td><td>Similar</td><td>El environment y Log Analytics suman piezas</td></tr>
+</table>
+<p>Es el proveedor donde este caso se arma con <b>menos piezas</b> y donde el requisito de <b>OIDC sin claves</b> se cumple sin las restricciones de las cuentas académicas de AWS. El costo de entrada fue que, en Uruguay, la prueba gratuita pidió un prepago de USD 30, reembolsable al cerrar la cuenta de facturación.</p>
+<p><b>Si hubiera que migrar:</b> el código está organizado en módulos por capacidad (<code>storage</code>, <code>job</code>, <code>scheduler</code>, <code>secret</code>, <code>monitoring</code>). Migrar significa reescribir el interior de cada módulo, no el diseño. Las equivalencias son Cloud Run Jobs → ECS Fargate o Container Apps Jobs, Secret Manager → Secrets Manager o Key Vault, Cloud Storage → S3 o Blob Storage.</p>
+
+<h2 class="salto">3.2 Arquitectura en Google Cloud</h2>
+<figure><img src="../diagramas/nube.png" style="max-height:200mm"><figcaption>Figura 1. Arquitectura en Google Cloud con los íconos oficiales. Fuente: <code>docs/diagramas/nube.py</code> (diagrams-as-code).</figcaption></figure>
+</section>
+
+<section>
+<h3>Componentes</h3>
+<table>
+<tr><th style="width:26%">Servicio</th><th>Rol en la solución</th><th style="width:20%">Capa</th></tr>
+<tr><td>Cloud Run Jobs</td><td>Corre el contenedor de Python hasta que termina; escala a cero</td><td>Entorno dev</td></tr>
+<tr><td>Cloud Scheduler</td><td>Dispara el job a las 09:00 (America/Montevideo) con su propia identidad</td><td>Entorno dev</td></tr>
+<tr><td>Cloud Storage (2 buckets)</td><td>Entrada (<code>opiniones.csv</code>, 30 días) y reportes (CSV + HTML, 14 días)</td><td>Entorno dev</td></tr>
+<tr><td>Natural Language API</td><td><code>analyzeSentiment</code> en español por opinión</td><td>API administrada</td></tr>
+<tr><td>Secret Manager</td><td>Guarda la URL del webhook de Discord</td><td>Entorno dev</td></tr>
+<tr><td>Cloud Monitoring</td><td>Métrica <code>sentiment_pct</code>, dashboard y dos alertas</td><td>Entorno dev</td></tr>
+<tr><td>Cloud Logging</td><td>Logs estructurados en JSON, retención de 7 días</td><td>Entorno dev</td></tr>
+<tr><td>Artifact Registry</td><td>Imágenes <code>app:&lt;sha&gt;</code>; conserva las últimas 5</td><td>Bootstrap</td></tr>
+<tr><td>Workload Identity Federation</td><td>Canjea el token OIDC de GitHub por credenciales temporales</td><td>Bootstrap</td></tr>
+<tr><td>Bucket del state</td><td>State remoto de Terraform, versionado y con bloqueo nativo</td><td>Bootstrap</td></tr>
+<tr><td>Presupuesto</td><td>USD 10 con avisos al 50, 80 y 100 %</td><td>Bootstrap</td></tr>
+</table>
+
+<h3>Límites de seguridad</h3>
+<ul>
+<li><b>Todo privado:</b> los buckets tienen <code>public_access_prevention = enforced</code> y acceso uniforme, sin ACL por objeto.</li>
+<li><b>Sin endpoint público:</b> el job no es un servicio HTTP; solo se ejecuta por la API, con IAM.</li>
+<li><b>Tres identidades separadas</b> (pipeline, job y scheduler), cada una con lo mínimo.</li>
+<li><b>Un solo dato sensible</b> (la URL del webhook), que vive en Secret Manager y se carga por CLI.</li>
+<li><b>Una sola salida hacia afuera:</b> el aviso del job a Discord.</li>
+</ul>
+
+<h3>Decisiones de arquitectura</h3>
+<table>
+<tr><th style="width:28%">Decisión</th><th style="width:28%">Alternativa descartada</th><th>Motivo</th></tr>
+<tr><td>Cloud Run <b>Jobs</b></td><td>Cloud Run Service o Cloud Functions</td><td>Es un proceso batch que termina; no necesita un endpoint HTTP público</td></tr>
+<tr><td>Bootstrap separado del entorno</td><td>Todo en un root module</td><td>El bucket del state, el registro y el OIDC tienen que existir antes del primer pipeline</td></tr>
+<tr><td>Imagen por SHA del commit</td><td><code>latest</code></td><td>Trazabilidad y rollback; la variable <code>image</code> rechaza <code>latest</code></td></tr>
+<tr><td>Secreto vacío en Terraform</td><td>Versión del secreto con el valor</td><td>El valor quedaría en el state</td></tr>
+<tr><td>Alerta de negocio y alerta técnica</td><td>Solo una</td><td>Una muestra el valor para el negocio y la otra la salud del job</td></tr>
+<tr><td>Directorio por entorno (<code>envs/dev</code>)</td><td>Workspaces</td><td>Aislamiento fuerte, como recomendaron en clase</td></tr>
+<tr><td>El aviso a Discord no es bloqueante</td><td>Fallar el job si falla el aviso</td><td>Un paso secundario no debe tirar abajo un análisis que ya terminó bien</td></tr>
+</table>
+</section>
+
+<section class="salto">
+<h2>3.3 Infraestructura como código (Terraform)</h2>
+<p>Ningún recurso se creó a mano en la consola. Las únicas excepciones, que permite la consigna, son el bootstrap del state y la carga del valor del secreto. Terraform está organizado en <b>dos capas</b>:</p>
+<table>
+<tr><th style="width:18%">Capa</th><th>Qué crea</th><th style="width:22%">Quién la aplica</th><th style="width:20%">State</th></tr>
+<tr><td><code>infra/bootstrap</code></td><td>APIs, bucket del state, Artifact Registry, Workload Identity Federation, cuenta del pipeline y presupuesto (33 recursos)</td><td>Una vez, a mano, desde Cloud Shell</td><td>Local, con respaldo en el bucket</td></tr>
+<tr><td><code>infra/envs/dev</code></td><td>Todo lo demás, con 5 módulos por capacidad</td><td>El pipeline (<code>deploy.yml</code>)</td><td>Remoto en GCS</td></tr>
+</table>
+
+<h3>El state: el problema del huevo y la gallina</h3>
+<p>El bootstrap crea el bucket donde vive el state remoto, así que su propio state no puede vivir ahí al principio. Queda local (<code>terraform.tfstate</code>, ignorado por Git), y después de aplicarlo se respalda con <code>gcloud storage cp</code> en <code>gs://&lt;proyecto&gt;-tfstate/bootstrap/</code>.</p>
+<p>El entorno dev declara <code>backend "gcs"</code> con el prefijo <code>zenithzest/dev</code>. El nombre del bucket no está en el código: el pipeline lo pasa al iniciar, desde la variable del repositorio:</p>
+<pre>terraform init -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"</pre>
+<p>El state de dev queda en <code>gs://&lt;proyecto&gt;-tfstate/zenithzest/dev/default.tfstate</code>. GCS tiene bloqueo nativo y el bucket está versionado, así que dos ejecuciones no pueden pisarse y se puede volver a una versión anterior del state.</p>
+
+<h3>Módulos por capacidad</h3>
+<table>
+<tr><th style="width:16%">Módulo</th><th>Recursos</th><th style="width:34%">Entradas y salidas clave</th></tr>
+<tr><td><code>storage</code></td><td>Buckets de entrada y reportes (privados, con TTL) y los CSV de prueba</td><td>→ nombres de los buckets</td></tr>
+<tr><td><code>job</code></td><td>Cloud Run Job (1 vCPU, 512 MiB, <code>max_retries = 1</code>) y su cuenta de servicio</td><td>← imagen por SHA, variables de entorno · → <code>member</code></td></tr>
+<tr><td><code>secret</code></td><td>Secreto vacío y <code>secretAccessor</code> solo para el job</td><td>← <code>member</code> del job</td></tr>
+<tr><td><code>scheduler</code></td><td>Cloud Scheduler, su cuenta y <code>run.invoker</code> solo sobre el job</td><td>← nombre del job, cron, pausado</td></tr>
+<tr><td><code>monitoring</code></td><td>Descriptor de métrica, dashboard, 2 alertas, canales de mail y logs a 7 días</td><td>← umbral, mails (sensibles)</td></tr>
+</table>
+<figure><img src="../uml/02-componentes.png" style="max-height:105mm"><figcaption>Figura 2. Componentes de Terraform: las flechas llevan los outputs de un módulo a las variables de otro.</figcaption></figure>
+
+<h3>Buenas prácticas aplicadas</h3>
+<ul>
+<li><b>State remoto con bloqueo:</b> bucket versionado de GCS y un state por entorno.</li>
+<li><b>Versiones fijadas:</b> Terraform 1.9.8, provider <code>google ~&gt; 6.0</code> y el lock file versionado en Git. Cada módulo tiene su <code>versions.tf</code>.</li>
+<li><b>Etiquetas obligatorias:</b> <code>project</code>, <code>team</code>, <code>env</code> y <code>owner</code> en todos los recursos.</li>
+<li><b>Variables validadas:</b> todas tienen tipo, descripción y validación. Por ejemplo, se rechaza un ID de proyecto inválido o una imagen <code>latest</code>.</li>
+<li><b>Imagen por SHA:</b> cada despliegue usa el commit exacto. Volver atrás es volver al commit anterior.</li>
+<li><b>Destroy limpio:</b> <code>destroy.yml</code> borra todo el entorno y muestra como evidencia que el state quedó vacío.</li>
+</ul>
+</section>
+
+<section class="salto">
+<h2>3.4 Pipeline CI/CD</h2>
+<figure><img src="../diagramas/cicd.png"><figcaption>Figura 3. Del Pull Request a la nube. Fuente: <code>docs/diagramas/cicd.py</code>.</figcaption></figure>
+<table>
+<tr><th style="width:17%">Workflow</th><th style="width:20%">Cuándo</th><th>Qué hace</th></tr>
+<tr><td><code>ci.yml</code></td><td>En cada Pull Request</td><td>En paralelo: tests de la app; <code>fmt</code>, <code>validate</code>, tflint y Checkov (bloqueante); gitleaks; build de la imagen y Trivy (bloquea CRITICAL con parche disponible); Infracost. Después, <code>terraform plan</code>, que queda comentado en el PR.</td></tr>
+<tr><td><code>deploy.yml</code></td><td>Push a <code>main</code> (ignora cambios solo de documentación)</td><td>Build de la imagen <code>app:&lt;sha&gt;</code>, Trivy y push a Artifact Registry. Espera la aprobación en el environment <code>dev</code>, y después <code>plan -out</code> y <code>apply tfplan</code>: se aplica exactamente el plan revisado.</td></tr>
+<tr><td><code>run-job.yml</code></td><td>Manual</td><td>Ejecuta el job con <code>opiniones.csv</code> o con <code>opiniones_crisis.csv</code>.</td></tr>
+<tr><td><code>destroy.yml</code></td><td>Manual (hay que escribir "destruir")</td><td><code>terraform destroy</code> y la evidencia de que el state quedó vacío.</td></tr>
+</table>
+<h3>Dos compuertas humanas</h3>
+<ol>
+<li><b>Aprobar el PR</b>, revisando el plan comentado y los resultados de los escaneos.</li>
+<li><b>Aprobar el despliegue</b> en el environment <code>dev</code>, que tiene a los dos integrantes como <i>required reviewers</i>.</li>
+</ol>
+<h3>Sin claves guardadas (OIDC)</h3>
+<p>GitHub firma un token OIDC que dice de qué repositorio viene. Workload Identity Federation lo canjea por credenciales de Google que duran una sola ejecución, y solo si cumple la condición <code>assertion.repository == "aaavril/ZenithZest-Cloud"</code>. En el repositorio no hay ninguna clave de cuenta de servicio: las variables de GitHub (<code>GCP_WIF_PROVIDER</code>, <code>GCP_SERVICE_ACCOUNT</code>, <code>TF_STATE_BUCKET</code> y otras) no son secretas.</p>
+<p><b>Concurrencia:</b> <code>deploy</code> y <code>destroy</code> comparten el grupo <code>deploy-dev</code>, así que nunca hay dos procesos sobre el mismo state. Los workflows tienen <code>permissions: contents: read</code> por defecto.</p>
+</section>
+
+<section class="salto">
+<h2>3.5 Seguridad e IAM</h2>
+<p><b>Principio:</b> menor privilegio. Cada permiso se da sobre el recurso más chico posible, y ninguna identidad tiene claves descargables. La matriz completa, con la justificación de cada rol, está en el Anexo B.</p>
+<table>
+<tr><th style="width:24%">Identidad</th><th>Puede</th><th style="width:36%">Sobre</th></tr>
+<tr><td>Job (<code>zenithzest-job-sa</code>)</td><td>Leer (<code>objectViewer</code>)</td><td>Solo el bucket de entrada</td></tr>
+<tr><td>Job</td><td>Crear archivos, sin leer ni borrar (<code>objectCreator</code>)</td><td>Solo el bucket de reportes</td></tr>
+<tr><td>Job</td><td>Leer el secreto (<code>secretAccessor</code>)</td><td>Solo <code>zenithzest-webhook</code></td></tr>
+<tr><td>Job</td><td>Escribir métricas y consumir la API</td><td>Proyecto (no hay un rol más chico)</td></tr>
+<tr><td>Scheduler (<code>zenithzest-job-cron</code>)</td><td>Ejecutar (<code>run.invoker</code>)</td><td>Solo el job</td></tr>
+<tr><td>Pipeline (<code>zenithzest-pipeline</code>)</td><td>Desplegar (roles de administración)</td><td>El proyecto, por OIDC y solo desde este repo</td></tr>
+</table>
+<div class="caja alerta"><b>Riesgo aceptado:</b> el pipeline tiene roles amplios (<code>serviceAccountUser</code>, <code>projectIamAdmin</code> y otros) porque crea la infraestructura. Se mitiga con el OIDC limitado al repositorio, credenciales que duran una ejecución, la aprobación manual del environment y ramas protegidas. Una mejora posible es un rol personalizado, o separar una cuenta de solo lectura para el plan de los PR.</div>
+
+<h3>Controles por diseño</h3>
+<ul>
+<li>Secreto creado vacío por Terraform; el valor se carga por CLI, con <code>read -s</code>, y nunca está en Git ni en el state.</li>
+<li>Imagen sin root (<code>USER 10001</code>), multi-stage, con base <code>python:3.12-slim</code> de versión fija.</li>
+<li>Los mails del equipo son <code>sensitive</code>: el plan, que es público porque el repo lo es, muestra <code>(sensitive value)</code>.</li>
+<li>El <code>.gitignore</code> excluye state, planes, tfvars locales y archivos de credenciales.</li>
+</ul>
+
+<h3>Escaneos en cada PR</h3>
+<table>
+<tr><th style="width:15%">Herramienta</th><th style="width:22%">Analiza</th><th>Resultado</th></tr>
+<tr><td>Checkov</td><td>Terraform, Dockerfile y GitHub Actions</td><td>Primera corrida: 11 hallazgos. Se revisaron uno por uno y se justificaron en el código con <code>#checkov:skip=&lt;ID&gt;:&lt;motivo&gt;</code>. Desde entonces <b>bloquea el merge</b>: Terraform 48/0 (24 omitidos justificados), Dockerfile 30/0, Actions 232/0.</td></tr>
+<tr><td>tflint</td><td>Reglas de Terraform y Google</td><td>Faltaban <code>required_version</code> y <code>required_providers</code> en los módulos. Corregido con un <code>versions.tf</code> por módulo.</td></tr>
+<tr><td>Trivy</td><td>Vulnerabilidades de la imagen</td><td>0 críticas con parche disponible. Las HIGH se reportan sin bloquear.</td></tr>
+<tr><td>gitleaks</td><td>Secretos en el historial de Git</td><td>0 hallazgos.</td></tr>
+</table>
+<h4>Hallazgos de Checkov aceptados</h4>
+<table>
+<tr><th style="width:20%">ID</th><th style="width:28%">Hallazgo</th><th>Decisión</th></tr>
+<tr><td>CKV_GCP_62</td><td>Buckets sin logs de acceso</td><td>Costo y ruido en pruebas; los cambios quedan en Cloud Audit Logs</td></tr>
+<tr><td>CKV_GCP_78</td><td>Buckets de datos sin versionado</td><td>Datos de prueba regenerables con TTL; el bucket del state sí está versionado</td></tr>
+<tr><td>CKV_GCP_84</td><td>Artifact Registry sin CMEK</td><td>Cifrado por defecto de Google; la imagen no tiene datos sensibles</td></tr>
+<tr><td>CKV_GCP_41 / 49</td><td>Roles de cuentas de servicio a nivel proyecto</td><td>Los necesita el pipeline; mitigado como se explica arriba</td></tr>
+<tr><td>CKV_GCP_125</td><td>OIDC sin condición sobre <code>assertion.sub</code></td><td>Se restringe por <code>assertion.repository</code>, como recomienda Google</td></tr>
+<tr><td>CKV_GHA_7</td><td><code>workflow_dispatch</code> con inputs</td><td>Los inputs no afectan ningún artefacto construido</td></tr>
+</table>
+
+<h2>3.6 Observabilidad</h2>
+<ul>
+<li><b>Métrica personalizada</b> <code>custom.googleapis.com/zenithzest/sentiment_pct</code>, con la etiqueta <code>sentiment</code> (positivo, negativo o neutro).</li>
+<li><b>Dashboard</b> con el % positivo y el % negativo (en rojo si pasa el umbral), la tendencia diaria y las ejecuciones del job por resultado.</li>
+<li><b>Alerta de negocio:</b> el % negativo es mayor a 40. Llega por mail a los dos integrantes.</li>
+<li><b>Alerta técnica:</b> una ejecución del job terminó con error.</li>
+<li><b>Logs estructurados</b> en JSON (<code>severity</code>, <code>message</code>), con retención de 7 días. Permitieron diagnosticar en un minuto el primer error real (ver la bitácora).</li>
+</ul>
+
+<h2>3.7 FinOps</h2>
+<div class="cifras">
+  <div><b>≈ USD 0–1</b>por mes, el entorno de pruebas (estimado con la capa gratuita)</div>
+  <div><b>≈ USD 300</b>por mes a escala: 10.000 opiniones por día</div>
+</div>
+<table>
+<tr><th style="width:45%">Medida de ahorro</th><th>Dónde</th></tr>
+<tr><td>Presupuesto de USD 10 con avisos al 50, 80 y 100 %, desde el día 1</td><td><code>infra/bootstrap</code></td></tr>
+<tr><td>Todo pago por uso: sin balanceador, NAT, base gestionada ni clúster</td><td>Arquitectura</td></tr>
+<tr><td>Tope de opiniones por corrida (<code>max_opinions = 200</code>) y scheduler pausable</td><td><code>dev.tfvars</code></td></tr>
+<tr><td>Logs a 7 días; TTL de 30 días en entrada y 14 en reportes</td><td>Módulos <code>monitoring</code> y <code>storage</code></td></tr>
+<tr><td>Registro de imágenes: conserva las últimas 5 y borra las de más de 7 días</td><td><code>infra/bootstrap</code></td></tr>
+<tr><td>Imagen chica (<code>slim</code>, multi-stage) y una sola región</td><td><code>app/Dockerfile</code> · variables</td></tr>
+<tr><td><code>destroy.yml</code> al terminar cada sesión de trabajo</td><td>Workflow</td></tr>
+</table>
+<p><b>Entorno de pruebas:</b> todos los servicios quedan dentro de la capa gratuita. La Natural Language API da 5.000 unidades por mes gratis: 200 opiniones por día durante 30 días son 6.000 unidades, así que con el scheduler pausado fuera de la demo queda dentro.</p>
+<p><b>A escala:</b> 10.000 opiniones por día son 300.000 unidades por mes. Restando la cuota gratuita, son unos USD 295 de la API de lenguaje; el resto suma alrededor de USD 1. Casi todo el costo es la API. Para bajarlo: deduplicar las opiniones, analizar solo lo nuevo y usar un modelo local para el grueso, dejando la API para los casos dudosos (ver el extra con VADER).</p>
+</section>
+
+<section class="parte">
+  <div class="barra"><div style="background:#1A73E8"></div><div style="background:#D93025"></div><div style="background:#F9AB00"></div><div style="background:#1E8E3E"></div></div>
+  <p class="kicker">Parte B</p>
+  <h1>Lógica y desarrollo</h1>
+  <p>Qué hace la aplicación, qué resultados dio en la nube y cómo la desarrollamos: la especificación de arquitectura que le dimos a Claude, qué generó y cómo lo verificamos y corregimos.</p>
+</section>
+
+<section class="salto">
+<h2>4.1 La aplicación</h2>
+<p><code>app/main.py</code> tiene 145 líneas de Python 3.12 y se configura solo con variables de entorno, que le pasa Terraform: <code>PROJECT_ID</code>, <code>INPUT_BUCKET</code>, <code>INPUT_OBJECT</code>, <code>REPORTS_BUCKET</code>, <code>SECRET_ID</code> y <code>MAX_OPINIONS</code>.</p>
+<table>
+<tr><th style="width:24%">Función</th><th>Qué hace</th></tr>
+<tr><td><code>leer_opiniones</code></td><td>Lee el CSV, saltea las filas vacías y respeta el tope <code>MAX_OPINIONS</code></td></tr>
+<tr><td><code>analizar</code></td><td>Llama a <code>analyze_sentiment</code> (idioma <code>es</code>) por cada opinión y guarda <code>score</code> y <code>magnitud</code></td></tr>
+<tr><td><code>clasificar</code></td><td><code>score ≥ 0,25</code> es positivo, <code>≤ −0,25</code> es negativo y el resto, neutro</td></tr>
+<tr><td><code>resumir</code></td><td>Calcula el % de cada sentimiento (también con 0 opiniones)</td></tr>
+<tr><td><code>reporte_csv</code> / <code>reporte_html</code></td><td>Arma el reporte del día; el HTML escapa el texto de las opiniones</td></tr>
+<tr><td><code>publicar_metricas</code></td><td>Escribe tres puntos de <code>sentiment_pct</code>, uno por sentimiento</td></tr>
+<tr><td><code>notificar</code></td><td>Lee el webhook de Secret Manager y manda el resumen. Si falla, deja un WARNING y <b>no hace fallar el job</b></td></tr>
+<tr><td><code>log</code></td><td>Una línea JSON por evento, que Cloud Logging interpreta</td></tr>
+</table>
+<p><b>Manejo de errores:</b> cualquier error del flujo principal queda registrado como <code>ERROR</code> y el programa sale con código 1. Cloud Run reintenta una vez y, si vuelve a fallar, se dispara la alerta técnica.</p>
+<p><b>Contenedor:</b> Dockerfile multi-stage. La primera etapa instala las dependencias y la imagen final solo copia las librerías y <code>main.py</code>, corre como usuario sin privilegios y no tiene herramientas de build.</p>
+<p><b>Pruebas</b> (<code>app/tests</code>, 6 tests, corren en cada PR): el umbral de clasificación, el tope y las filas vacías, los porcentajes (también vacíos), que un webhook que responde 403 no haga fallar el job y que el reporte HTML escape el contenido.</p>
+<p><b>Datos de prueba:</b> <code>scripts/generar_opiniones.py</code> genera <code>opiniones.csv</code> (200 opiniones variadas) y <code>opiniones_crisis.csv</code> (40, mayormente negativas, para disparar la alerta).</p>
+
+<h2>4.2 Una ejecución, paso a paso</h2>
+<figure><img src="../uml/03-secuencia-job.png" style="max-height:120mm"><figcaption>Figura 4. Diagrama de secuencia de una ejecución del job.</figcaption></figure>
+<ol>
+<li>A las 09:00 (o a mano con <code>run-job.yml</code>), Cloud Scheduler hace <code>POST …/jobs/zenithzest-job:run</code> con un token OAuth de su propia cuenta.</li>
+<li>El contenedor lee hasta 200 opiniones del bucket de entrada.</li>
+<li>Por cada opinión, la API devuelve un puntaje de −1 a 1 y el job la clasifica.</li>
+<li>Escribe <code>AAAA-MM-DD/reporte-HHMMSS.csv</code> y <code>.html</code> en el bucket de reportes.</li>
+<li>Publica el % de cada sentimiento como métrica.</li>
+<li>Lee el webhook y avisa a Discord. Si no hay secreto o el aviso falla, deja un WARNING y sigue.</li>
+<li>Cloud Monitoring evalúa las dos alertas y, si corresponde, manda el mail.</li>
+</ol>
+</section>
+
+<section class="salto">
+<h2>4.3 Resultados y evidencias</h2>
+<p>Todo esto ocurrió el 17/11/2026 en el proyecto real (<code>zenithzest-ucu-1711</code>).</p>
+<div class="cifras">
+  <div><b style="color:#1E8E3E">69 %</b>positivas</div>
+  <div><b style="color:#D93025">20 %</b>negativas</div>
+  <div><b style="color:#5F6368">11 %</b>neutras</div>
+</div>
+<figure><img src="img/discord.png"><figcaption>Figura 5. Resúmenes que llegaron a Discord: la corrida normal (200 opiniones) y la de crisis (90 % negativas).</figcaption></figure>
+<p>El generador de datos apuntaba a una distribución de 55 / 25 / 20. La diferencia viene de frases que una persona leería como neutras y la API puntuó levemente positivas: "está en promoción esta semana" (0,50) o "sacó un sabor nuevo" (0,70). El <b>umbral de clasificación</b> (±0,25) es una decisión de negocio, no un detalle técnico.</p>
+<figure><img src="img/alerta-mail.png" style="max-height:85mm"><figcaption>Figura 6. La alerta "opiniones negativas &gt; 40 %" se disparó con un valor de 90 y llegó por mail a los dos integrantes (14:03 UTC).</figcaption></figure>
+<figure><img src="img/destroy.png" style="max-height:80mm"><figcaption>Figura 7. <code>destroy.yml</code> en verde: el paso de evidencia confirma que el state quedó vacío. Solo queda el bootstrap, con costo casi nulo.</figcaption></figure>
+</section>
+
+<section class="salto">
+<h2>4.4 Extra: comparación con un modelo local (VADER)</h2>
+<p>La consigna propone comparar la API con un modelo local simple. <code>scripts/comparar_modelos.py</code> toma el reporte CSV de la corrida real y lo compara con <b>VADER</b> (<code>vaderSentiment</code> 3.3.2), un modelo gratuito que suma el puntaje de cada palabra según un diccionario en inglés. Le agregamos un léxico de unas 60 palabras en español y las negaciones del español. Corre en la laptop, sin costo.</p>
+<p><b>Coincidencia VADER vs. API: 91 %</b> (182 de 200).</p>
+<table>
+<tr><th>API \ VADER</th><th>positivo</th><th>negativo</th><th>neutro</th></tr>
+<tr><td>positivo</td><td>120</td><td>0</td><td>18</td></tr>
+<tr><td>negativo</td><td>0</td><td>40</td><td>0</td></tr>
+<tr><td>neutro</td><td>0</td><td>0</td><td>22</td></tr>
+</table>
+<ul>
+<li><b>Las negativas coinciden al 100 %</b> (40 de 40): las quejas son claras para los dos modelos.</li>
+<li><b>Las 18 diferencias</b> son frases informativas que la API vio levemente positivas y VADER dejó en neutro. En esos casos VADER se parece más a lo que leería una persona.</li>
+<li><b>Un "falso amigo":</b> la primera comparación dio 85 %. VADER marcaba como negativa "me cambiaron un pack <i>sin</i> problema", porque en inglés <i>sin</i> significa "pecado" (−2,6). Al indicarle que en español "sin" es neutro y una negación, subió a 91 %.</li>
+</ul>
+<p><b>Conclusión:</b> un modelo local adaptado coincide en 9 de cada 10 opiniones sin costo por uso. Es la palanca principal de FinOps a escala: usar el modelo local para lo obvio y la API solo para lo dudoso. La limitación es que el dataset es sintético; con opiniones reales la coincidencia sería menor.</p>
+</section>
+
+<section class="salto">
+<h2>4.5 Cómo desarrollamos con Claude</h2>
+<p>Usamos <b>Claude</b> (Claude Code, el asistente de programación de Anthropic) para escribir el código. La regla fue que <b>la arquitectura la definíamos nosotros antes de que se escribiera una línea</b>: Claude la implementaba, y nosotros revisábamos, desplegábamos y aprobábamos cada cambio.</p>
+
+<h3>Metodología, en cuatro etapas</h3>
+<table>
+<tr><th style="width:22%">Etapa</th><th>Qué hicimos</th></tr>
+<tr><td>1. Arquitectura primero</td><td>A partir de la consigna, fijamos las decisiones de la tabla siguiente: proveedor, servicios, capas de Terraform, seguridad, pipeline y costos. Esa fue la especificación que le dimos a Claude.</td></tr>
+<tr><td>2. Plan mode</td><td>Le pedimos a Claude un plan, sin tocar archivos: estructura de carpetas, módulos, workflows y documentación. Revisamos el plan contra la consigna y nuestras decisiones, y lo corregimos antes de aprobarlo.</td></tr>
+<tr><td>3. Ejecución y verificación</td><td>Claude generó el código del plan aprobado. Lo verificamos localmente, con Docker, antes de subir nada: <code>fmt</code>, <code>validate</code>, tflint, Checkov y los tests (14/11).</td></tr>
+<tr><td>4. Iteración en la nube</td><td>Después fue ir probando: seguir los pasos de despliegue en la nube real y, cuando algo fallaba, llevarle el error (logs de Actions o de Cloud Logging) a Claude, discutir la causa, aplicar la corrección por PR y volver a probar. Cada problema quedó en la bitácora (4.6).</td></tr>
+</table>
+
+<h3>Especificación de arquitectura que le dimos a Claude</h3>
+<table>
+<tr><th style="width:20%">Tema</th><th>Decisión predefinida por el equipo</th></tr>
+<tr><td>Proveedor</td><td>Google Cloud, una sola región (<code>us-central1</code>), con la elección justificada frente a AWS y Azure.</td></tr>
+<tr><td>Cómputo</td><td>Un <b>job</b> batch en Cloud Run Jobs, disparado por Cloud Scheduler a las 09:00. Sin servicio HTTP ni endpoint público.</td></tr>
+<tr><td>Aplicación</td><td>Python, menos de 150 líneas, configurada solo con variables de entorno, logs estructurados en JSON y tests de la lógica pura.</td></tr>
+<tr><td>Terraform: capas</td><td>Dos capas: <code>bootstrap</code> (una vez, a mano) y <code>envs/dev</code> (lo aplica el pipeline). Un directorio por entorno, no workspaces.</td></tr>
+<tr><td>Terraform: módulos</td><td>Un módulo por capacidad: <code>storage</code>, <code>job</code>, <code>scheduler</code>, <code>secret</code> y <code>monitoring</code>. Los permisos del job, en un <code>iam.tf</code> aparte.</td></tr>
+<tr><td>State</td><td>Remoto en GCS, versionado y con bloqueo. El nombre del bucket no se versiona: se pasa con <code>-backend-config</code>.</td></tr>
+<tr><td>Estándares de IaC</td><td>Versiones fijadas con lock file; etiquetas <code>project</code>, <code>team</code>, <code>env</code> y <code>owner</code> en todo; todas las variables con tipo, descripción y validación.</td></tr>
+<tr><td>Imágenes</td><td>Etiquetadas con el SHA del commit, nunca <code>latest</code>. Dockerfile multi-stage, usuario sin privilegios.</td></tr>
+<tr><td>Identidad</td><td>GitHub entra por OIDC (Workload Identity Federation), limitado a este repositorio. Ninguna clave de cuenta de servicio.</td></tr>
+<tr><td>IAM</td><td>Tres identidades (pipeline, job y scheduler), cada permiso sobre el recurso más chico posible.</td></tr>
+<tr><td>Secretos</td><td>Terraform crea el secreto vacío; el valor se carga por CLI y nunca pasa por Git ni por el state.</td></tr>
+<tr><td>Datos</td><td>Buckets privados (prevención de acceso público, acceso uniforme) con borrado automático.</td></tr>
+<tr><td>CI/CD</td><td>En cada PR: tests, <code>fmt</code>, <code>validate</code>, tflint, Checkov, gitleaks, Trivy y el plan comentado. Deploy con aprobación del environment, aplicando exactamente el plan revisado. Destroy manual con evidencia.</td></tr>
+<tr><td>Observabilidad</td><td>Métrica de negocio personalizada, dashboard, una alerta de negocio (&gt; 40 % negativas) y una técnica (job fallido).</td></tr>
+<tr><td>FinOps</td><td>Presupuesto desde el día 1, todo escala a cero, tope de opiniones, retenciones cortas y destroy al terminar cada sesión.</td></tr>
+<tr><td>Documentación</td><td>Diagramas como código (PlantUML y Python <code>diagrams</code>) y una bitácora de problemas.</td></tr>
+</table>
+
+<h3>Qué hizo Claude y qué hicimos nosotros</h3>
+<table>
+<tr><th style="width:18%">Área</th><th>Lo que generó Claude</th><th style="width:38%">Lo que hicimos nosotros</th></tr>
+<tr><td>Terraform</td><td>El bootstrap, los 5 módulos y el root module de dev, con validaciones, etiquetas y los <code>#checkov:skip</code> justificados</td><td>Definir el diseño, revisar el plan comentado de cada PR y aplicar el bootstrap desde Cloud Shell</td></tr>
+<tr><td>CI/CD</td><td>Los cuatro workflows (<code>ci</code>, <code>deploy</code>, <code>run-job</code> y <code>destroy</code>)</td><td>Configurar las variables y el environment en GitHub, y aprobar cada PR y cada deploy</td></tr>
+<tr><td>Aplicación</td><td><code>main.py</code>, los tests, el Dockerfile y el generador de datos</td><td>Fijar el umbral y el comportamiento ante fallos; correr el job en la nube</td></tr>
+<tr><td>Correcciones</td><td>La causa probable y el arreglo de cada error que le llevamos</td><td>Reproducir el error, leer los logs, decidir si el arreglo era correcto y probarlo de nuevo</td></tr>
+<tr><td>Documentación</td><td>Borradores de los documentos, los diagramas y este informe</td><td>Revisar el contenido contra lo que realmente pasó</td></tr>
+<tr><td>Pasos manuales</td><td>Las instrucciones paso a paso</td><td>Crear la cuenta y el proyecto, pagar el prepago, cargar el secreto y probar la alerta</td></tr>
+</table>
+<div class="caja"><b>Lo que aprendimos de trabajar así:</b> definir la arquitectura primero y aprobar un plan antes de generar código evitó que la herramienta decidiera por nosotros. Lo que el asistente no podía prever salió al desplegar de verdad: el 403 de Discord, la regla nueva de Checkov, los mails visibles en el plan público. Ahí fue clave tener tests, logs estructurados y todo cambio por PR, para verificar cada corrección en lugar de aceptarla a ciegas.</div>
+</section>
+
+<section class="salto">
+<h2>4.6 Bitácora: problemas y soluciones</h2>
+<table>
+<tr><th style="width:9%">Fecha</th><th>Qué pasó</th></tr>
+<tr><td>14/11</td><td>Código, Terraform (bootstrap y 5 módulos), workflows y documentación, validados localmente con Docker.</td></tr>
+<tr><td>16/11</td><td>Repo en GitHub. Validaciones en todas las variables, Infracost, comparación con VADER y diagrama de arquitectura.</td></tr>
+<tr><td>17/11</td><td>Cuenta de Google Cloud, bootstrap (33 recursos), variables y environment. Primer deploy en verde. Primer <code>run-job</code> en rojo por Discord; corregido. Segunda corrida en verde, alerta de crisis disparada y <code>destroy</code> con el state vacío.</td></tr>
+</table>
+<table>
+<tr><th style="width:24%">Problema</th><th style="width:30%">Causa</th><th>Solución y aprendizaje</th></tr>
+<tr><td><code>run-job</code> #1 en rojo tras ~4 min</td><td>Discord respondió 403: rechaza pedidos sin <i>User-Agent</i> propio. El error no estaba atajado, el job salió con código 1 y se reintentó.</td><td><i>User-Agent</i> propio y aviso no bloqueante, con un test. Un paso secundario no debe tirar abajo el principal.</td></tr>
+<tr><td>Los logs de GitHub pedían iniciar sesión</td><td>GitHub exige autenticación para descargar logs</td><td>Se leyó el error en Cloud Logging: los logs JSON mostraron en un minuto hasta dónde llegó el job.</td></tr>
+<tr><td>El primer PR falló en Checkov (CKV_GCP_125)</td><td>La acción baja la última versión (3.4.5); localmente se usaba la 3.2</td><td>Justificado en el código. Conviene fijar la versión del escáner en CI.</td></tr>
+<tr><td>El plan en el PR mostraba los mails del equipo</td><td>El repo es público y el plan imprime los valores</td><td><code>alert_emails</code> pasó a <code>sensitive</code>. Los datos personales también son sensibles.</td></tr>
+<tr><td><code>tflint --init</code> con 403 por límite de API</td><td>El plugin se baja de GitHub sin token, con límite por IP</td><td>Se le pasa <code>GITHUB_TOKEN</code>.</td></tr>
+<tr><td>El <code>destroy</code> quedó en cola</td><td>Un deploy de documentación esperaba aprobación con la misma concurrencia</td><td>Se rechazó ese deploy y se agregó <code>paths-ignore</code> para los cambios de docs.</td></tr>
+<tr><td>Las primeras corridas de deploy, en rojo</td><td>Todavía no existían ni el proyecto ni las variables</td><td>Primero el bootstrap y después el pipeline.</td></tr>
+<tr><td>Terraform no venía en Cloud Shell</td><td>Cloud Shell dejó de incluirlo</td><td>Binario oficial 1.9.8, verificando el SHA256, la misma versión que CI.</td></tr>
+<tr><td><code>git clone</code> pedía contraseña</td><td>El repo era privado</td><td>Se hizo público: no tiene secretos y el acceso a la nube está limitado por OIDC.</td></tr>
+<tr><td>Prepago de USD 30 en la prueba gratuita</td><td>Condición de Google para Uruguay</td><td>Se pagó (es reembolsable). Hay que verificar las condiciones del proveedor antes de elegirlo.</td></tr>
+<tr><td>VADER: 85 % de coincidencia</td><td>Falso amigo: "sin" = "pecado" en inglés</td><td>Se corrigió en el léxico y subió a 91 %. Hay que mirar los ejemplos, no solo el porcentaje.</td></tr>
+</table>
+
+<h1 style="margin-top:8mm">5. Conclusiones</h1>
+<ul>
+<li>El sistema cumple el caso de punta a punta en la nube real: análisis diario, reporte, métrica, aviso y alerta. Además se puede destruir y recrear igual desde el código.</li>
+<li>La seguridad está en el diseño: sin claves (OIDC), menor privilegio por recurso, secreto fuera de Git y del state, y escaneos que bloquean el merge.</li>
+<li>El costo de pruebas es casi cero porque todo escala a cero. A escala, el costo es la API de lenguaje, y un modelo local podría reducirlo mucho.</li>
+<li>Separar la plataforma (Parte A) de la lógica (Parte B) hizo que la aplicación pudiera ser mínima, y que lo importante, la infraestructura y su pipeline, fuera reproducible y auditable.</li>
+<li>Trabajar con un asistente de código funcionó porque la arquitectura y los criterios de verificación los pusimos nosotros. Los problemas reales aparecieron al desplegar, y la bitácora muestra cómo se resolvió cada uno.</li>
+</ul>
+</section>
+
+<section class="salto">
+<h1>Anexo A · Diagramas UML</h1>
+<p>Cinco diagramas escritos como código en PlantUML (<code>docs/uml/*.puml</code>). El de componentes (Figura 2) y el de secuencia (Figura 4) están en el cuerpo del informe; acá van los otros tres.</p>
+<figure><img src="../uml/01-despliegue.png" style="max-height:120mm"><figcaption>Figura A1. Despliegue: dónde corre cada cosa y cómo se comunica. Hay tres "nubes" (GitHub, Google Cloud y los servicios externos) y solo el job sale hacia afuera.</figcaption></figure>
+<figure><img src="../uml/05-casos-de-uso.png" style="max-height:105mm"><figcaption>Figura A2. Casos de uso. El equipo de marketing consulta los reportes y recibe la alerta; el equipo de plataforma despliega, destruye, ejecuta y gestiona el secreto. La alerta <i>extiende</i> el análisis solo cuando se supera el 40 %.</figcaption></figure>
+</section>
+
+<section class="salto">
+<figure><img src="../uml/04-actividad-cicd.png" style="max-height:235mm"><figcaption>Figura A3. Actividad del pipeline CI/CD. Cada carril es un responsable, los chequeos del PR corren en paralelo y hay dos compuertas humanas.</figcaption></figure>
+</section>
+
+<section class="salto">
+<h1>Anexo B · Matriz IAM completa</h1>
+<table>
+<tr><th style="width:22%">Identidad</th><th style="width:28%">Rol</th><th style="width:18%">Recurso</th><th>Justificación</th></tr>
+<tr><td>zenithzest-job-sa</td><td><code>storage.objectViewer</code></td><td>Bucket entrada</td><td>Leer <code>opiniones.csv</code>. No puede escribir ni borrar.</td></tr>
+<tr><td>zenithzest-job-sa</td><td><code>storage.objectCreator</code></td><td>Bucket reportes</td><td>Crear los reportes. No puede leerlos, sobrescribirlos ni borrarlos.</td></tr>
+<tr><td>zenithzest-job-sa</td><td><code>secretmanager.secretAccessor</code></td><td>Secreto del webhook</td><td>Leer la URL del webhook; solo ese secreto.</td></tr>
+<tr><td>zenithzest-job-sa</td><td><code>monitoring.metricWriter</code></td><td>Proyecto</td><td>Publicar la métrica. No hay rol a nivel de métrica; no permite leer ni borrar.</td></tr>
+<tr><td>zenithzest-job-sa</td><td><code>serviceusage.serviceUsageConsumer</code></td><td>Proyecto</td><td>Consumir la Natural Language API facturando al proyecto.</td></tr>
+<tr><td>zenithzest-job-cron</td><td><code>run.invoker</code></td><td>Job</td><td>Ejecutar solo ese job; no puede cambiarlo ni ver otros.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>iam.workloadIdentityUser</code></td><td>La propia cuenta</td><td>Solo los tokens OIDC de este repositorio pueden usarla.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>artifactregistry.writer</code></td><td>Repositorio <code>zenithzest</code></td><td>Subir imágenes.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>run.admin</code></td><td>Proyecto</td><td>Crear y actualizar el job, y ejecutarlo.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>storage.admin</code></td><td>Proyecto</td><td>Crear los buckets y leer y escribir el state.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>cloudscheduler.admin</code></td><td>Proyecto</td><td>Crear el programador.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>secretmanager.admin</code></td><td>Proyecto</td><td>Crear el secreto vacío y su IAM.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>monitoring.editor</code></td><td>Proyecto</td><td>Métrica, dashboard, alertas y canales.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>logging.configWriter</code></td><td>Proyecto</td><td>Retención de 7 días del bucket <code>_Default</code>.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>iam.serviceAccountAdmin</code></td><td>Proyecto</td><td>Crear las cuentas del job y del scheduler.</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>iam.serviceAccountUser</code></td><td>Proyecto</td><td>Asignar la cuenta del job al job (actAs).</td></tr>
+<tr><td>zenithzest-pipeline</td><td><code>resourcemanager.projectIamAdmin</code></td><td>Proyecto</td><td>Darle al job <code>metricWriter</code> y <code>serviceUsageConsumer</code>.</td></tr>
+<tr><td>Integrantes</td><td>Owner</td><td>Proyecto</td><td>Bootstrap y carga del secreto. Fuera de eso, todo cambio pasa por PR y pipeline.</td></tr>
+</table>
+<p>Para verificarlo en la demo:</p>
+<pre>gcloud storage buckets get-iam-policy gs://&lt;proyecto&gt;-zz-dev-entrada
+gcloud secrets get-iam-policy zenithzest-webhook
+gcloud run jobs get-iam-policy zenithzest-job --region us-central1</pre>
+
+<h1 style="margin-top:8mm">Anexo C · Despliegue paso a paso</h1>
+<ol>
+<li><b>Proyecto</b> (en Cloud Shell): <code>gcloud projects create</code>, vincular la facturación y <code>gcloud config set project</code>.</li>
+<li><b>Bootstrap</b> (una vez): completar <code>bootstrap.tfvars</code>, después <code>terraform init</code> y <code>terraform apply</code> en <code>infra/bootstrap</code>, y respaldar el state local en el bucket.</li>
+<li><b>Variables de GitHub</b> (salen del <code>terraform output</code>): <code>GCP_PROJECT_ID</code>, <code>GCP_REGION</code>, <code>GCP_WIF_PROVIDER</code>, <code>GCP_SERVICE_ACCOUNT</code>, <code>TF_STATE_BUCKET</code>, <code>IMAGE_REPO</code> y <code>ALERT_EMAILS</code>.</li>
+<li><b>Environment <code>dev</code></b>, con los dos integrantes como <i>required reviewers</i>.</li>
+<li><b>Push a <code>main</code></b>: <code>deploy.yml</code> construye la imagen y, después de la aprobación, aplica.</li>
+<li><b>Cargar el secreto:</b> <code>printf '%s' "$URL" | gcloud secrets versions add zenithzest-webhook --data-file=-</code></li>
+<li><b>Probar:</b> Actions → <code>run-job</code>, y ver el reporte, el dashboard y Discord.</li>
+<li><b>Destruir:</b> Actions → <code>destroy</code>, escribir "destruir". El bootstrap se borra al final del curso.</li>
+</ol>
+</section>
+</body>
+</html>

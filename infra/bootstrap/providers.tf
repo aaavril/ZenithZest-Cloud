@@ -6,8 +6,7 @@ terraform {
       version = "~> 6.0"
     }
   }
-  # El state del bootstrap queda local (terraform.tfstate, ignorado por git):
-  # es el huevo y la gallina del bucket remoto. Guardarlo en un lugar seguro.
+  # State local a propósito: este módulo crea el bucket remoto (el huevo y la gallina).
 }
 
 provider "google" {

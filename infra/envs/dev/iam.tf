@@ -1,4 +1,4 @@
-# Permisos de la cuenta del job: cada uno sobre el recurso más chico posible (ver docs/iam.md).
+# Permisos de la cuenta del job: cada uno sobre el recurso más chico posible (ver el informe, Anexo B).
 
 # Leer SOLO el bucket de entrada
 resource "google_storage_bucket_iam_member" "job_lee_entrada" {
@@ -28,5 +28,4 @@ resource "google_project_iam_member" "job_api_lenguaje" {
   member  = module.job.member
 }
 
-# El acceso al secreto se da en el módulo secret (secretAccessor solo sobre ese secreto).
-# La invocación del job se da en el módulo scheduler (run.invoker solo sobre ese job).
+# secretAccessor se da en el módulo secret y run.invoker en el módulo scheduler, cada uno sobre su recurso.

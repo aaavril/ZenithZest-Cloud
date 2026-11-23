@@ -1,16 +1,4 @@
-"""Extra del enunciado: comparar la API de lenguaje con un modelo local simple (VADER).
-
-VADER está pensado para inglés: se le agrega un léxico básico de palabras en español con su
-polaridad (escala de VADER, −4 a +4). Corre en la laptop, sin costo, sobre un reporte del job.
-
-Uso:
-  pip install vaderSentiment==3.3.2
-  gcloud storage cp gs://<proyecto>-zz-dev-reportes/<fecha>/reporte-<hora>.csv reporte.csv
-  python scripts/comparar_modelos.py reporte.csv [--md docs/comparacion-modelos.md]
-
-Si el CSV no trae la columna "sentimiento" de la API (ej. data/opiniones.csv), solo muestra
-la distribución de VADER.
-"""
+"""Compara el sentimiento de la API (reporte del job) con VADER + léxico en español. Uso en el README."""
 import argparse
 import csv
 import sys
