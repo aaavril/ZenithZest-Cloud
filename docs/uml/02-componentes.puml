@@ -1,6 +1,5 @@
 @startuml 02-componentes
-' Diagrama de componentes UML: módulos de Terraform, qué crea cada uno y cómo se conectan
-' (las flechas llevan los outputs de un módulo a las variables de otro).
+' Componentes: módulos de Terraform; las flechas llevan outputs de un módulo a variables de otro.
 title ZenithZest — Diagrama de componentes (Terraform)
 
 skinparam shadowing false

@@ -1,8 +1,4 @@
-"""Genera los CSV de prueba: data/opiniones.csv (200 opiniones variadas) y
-data/opiniones_crisis.csv (40 opiniones mayormente negativas, para disparar la alerta en la demo).
-
-Uso: python scripts/generar_opiniones.py
-"""
+"""Genera data/opiniones.csv (200 variadas) y data/opiniones_crisis.csv (40, mayormente negativas)."""
 import csv
 import random
 from datetime import date, timedelta

@@ -1,5 +1,4 @@
-# Valores NO sensibles del entorno dev. project_id, image y alert_emails los pasa el pipeline
-# desde las variables del repositorio (o -var al correr a mano).
+# Valores NO sensibles de dev; project_id, image y alert_emails los pasa el pipeline (o -var a mano).
 region                 = "us-central1"
 env                    = "dev"
 input_object           = "opiniones.csv"

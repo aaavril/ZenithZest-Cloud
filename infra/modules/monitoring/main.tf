@@ -16,8 +16,7 @@ resource "google_monitoring_metric_descriptor" "sentimiento" {
   }
 }
 
-# Los mails son sensibles: el plan (que se publica en el PR) muestra "(sensitive value)" en vez de la dirección.
-# Por eso count y no for_each: for_each no acepta valores sensibles, y la cantidad de mails no es secreta.
+# count y no for_each: los mails son sensibles (el plan es público) y for_each no acepta valores sensibles.
 resource "google_monitoring_notification_channel" "email" {
   count        = nonsensitive(length(var.alert_emails))
   project      = var.project_id

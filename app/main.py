@@ -1,9 +1,4 @@
-"""ZenithZest: job diario que analiza el sentimiento de las opiniones de clientes.
-
-Lee un CSV del bucket de entrada, clasifica cada opinión con la API de lenguaje,
-escribe un reporte CSV + HTML en el bucket de reportes, publica el % de cada
-sentimiento como métrica personalizada y avisa el resumen por webhook.
-"""
+"""ZenithZest: job diario que clasifica opiniones con la API de lenguaje, reporta, mide y avisa."""
 import csv
 import io
 import json

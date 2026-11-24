@@ -1,5 +1,4 @@
-# El secreto se crea VACÍO: el valor (URL del webhook) se carga por CLI y nunca pasa por Terraform ni por Git.
-#   printf '%s' "https://discord.com/api/webhooks/..." | gcloud secrets versions add <secret_id> --data-file=-
+# El secreto se crea VACÍO: el valor se carga por CLI (README) y nunca pasa por Terraform ni por Git.
 resource "google_secret_manager_secret" "this" {
   project   = var.project_id
   secret_id = var.secret_id

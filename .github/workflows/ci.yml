@@ -77,8 +77,7 @@ jobs:
         run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.58.1 image --severity CRITICAL --ignore-unfixed --exit-code 1 zenithzest:ci
 
   costos:
-    # Infracost: comenta en el PR el costo mensual estimado de la infraestructura y su diferencia.
-    # Requiere el secreto INFRACOST_API_KEY (gratis en infracost.io); sin él, el job se saltea.
+    # Infracost comenta en el PR el costo mensual estimado; sin el secreto INFRACOST_API_KEY se saltea.
     runs-on: ubuntu-latest
     permissions:
       contents: read

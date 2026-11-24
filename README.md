@@ -8,7 +8,9 @@ de entrada, pide el sentimiento de cada línea a la **API de lenguaje**, escribe
 bucket de reportes, publica el **% positivo / negativo / neutro** como **métrica personalizada** y avisa el
 resumen a un **webhook** cuya URL vive en **Secret Manager**.
 
-Proveedor: **Google Cloud** (justificación en [docs/proveedor.md](docs/proveedor.md)).
+Proveedor: **Google Cloud**.
+
+**Entregables:** [informe final (PDF)](docs/Informe-ZenithZest.pdf) · [presentación](docs/presentacion/README.md) · este repositorio.
 
 ```text
 Cloud Scheduler (09:00 diario) ──▶ Cloud Run Job "zenithzest-job" (Python, imagen en Artifact Registry)
@@ -30,12 +32,16 @@ infra/bootstrap/       una sola vez, a mano: APIs, bucket del state, Artifact Re
 infra/modules/         storage, job, scheduler, secret, monitoring
 infra/envs/dev/        root module del entorno (main, iam, variables, outputs, providers, backend, dev.tfvars)
 .github/workflows/     ci.yml (PR), deploy.yml (main), destroy.yml (manual), run-job.yml (manual)
-docs/                  proveedor, arquitectura, diagramas UML (docs/uml), IAM, FinOps, seguridad, bitácora, presentación
+docs/                  Informe-ZenithZest.pdf, informe/ (fuente HTML), diagramas/ (nube y CI/CD con íconos),
+                       uml/ (5 diagramas PlantUML), presentacion/
 ```
 
-![Arquitectura](docs/arquitectura.png)
+![Arquitectura en Google Cloud](docs/diagramas/nube-ancho.png)
 
-Diagramas UML de despliegue, componentes, secuencia, actividad y casos de uso: [docs/diagramas-uml.md](docs/diagramas-uml.md).
+![Pipeline CI/CD](docs/diagramas/cicd.png)
+
+Los diagramas son código: `docs/diagramas/*.py` (librería `diagrams`, necesita Graphviz) y `docs/uml/*.puml` (PlantUML).
+Todos están explicados en el informe.
 
 ## Desplegar
 
@@ -88,18 +94,19 @@ El bootstrap (bucket del state, registro, OIDC, presupuesto) se borra al final d
   resumen recibido en Discord.
 - **Crisis simulada** (`opiniones_crisis.csv`): 90 % negativas → la alerta "> 40 %" se disparó y llegó el mail.
 - **Destroy:** todo el entorno borrado y el state verificado vacío.
-- Problemas, causas y aprendizajes del proceso: [docs/bitacora.md](docs/bitacora.md).
+- Problemas, causas y aprendizajes del proceso: bitácora en el [informe](docs/Informe-ZenithZest.pdf) (sección 4.6).
 
-**Presentación de la defensa:** [docs/presentacion/](docs/presentacion/README.md) (18 slides con notas del orador).
+**Presentación de la defensa:** [docs/presentacion/](docs/presentacion/README.md) (21 slides con notas del orador).
 
 ## Extras
 
 - **Comparación con un modelo local:** `scripts/comparar_modelos.py` compara un reporte del job (API) con VADER
   adaptado al español: **91 % de coincidencia** sobre la corrida real
-  ([docs/comparacion-modelos.md](docs/comparacion-modelos.md)). Para correrlo:
+  (informe, sección 4.4). Para correrlo, con el reporte bajado del bucket:
   ```bash
   pip install vaderSentiment==3.3.2
-  python scripts/comparar_modelos.py reporte.csv --md docs/comparacion-modelos.md
+  gcloud storage cp gs://<proyecto>-zz-dev-reportes/<fecha>/reporte-<hora>.csv reporte.csv
+  python scripts/comparar_modelos.py reporte.csv
   ```
 - **Tendencia diaria del sentimiento:** gráfico de línea en el dashboard de Cloud Monitoring.
 
@@ -109,4 +116,12 @@ El bootstrap (bucket del state, registro, OIDC, presupuesto) se borra al final d
   `terraform plan` publicado como comentario e Infracost (costo estimado del PR, si está el secreto `INFRACOST_API_KEY`).
 - Sin claves de larga duración: GitHub Actions entra a Google Cloud por OIDC (Workload Identity Federation) y solo
   desde este repositorio.
-- Detalle en [docs/seguridad.md](docs/seguridad.md) e [docs/iam.md](docs/iam.md).
+- Detalle de seguridad, matriz IAM y FinOps en el [informe](docs/Informe-ZenithZest.pdf) (secciones 3.5 a 3.7 y Anexo B).
+
+## Regenerar el informe y los diagramas
+
+```bash
+cd docs/diagramas && python nube.py && python nube.py ancho && python cicd.py   # pip install diagrams; brew install graphviz
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer \
+  --print-to-pdf="$PWD/docs/Informe-ZenithZest.pdf" "file://$PWD/docs/informe/informe.html"
+```
